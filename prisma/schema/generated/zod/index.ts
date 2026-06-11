@@ -209,7 +209,7 @@ export type MesocycleExerciseTemplate = z.infer<typeof MesocycleExerciseTemplate
 /////////////////////////////////////////
 
 export const UserSchema = z.object({
-  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),
+  id: z.cuid(),
   name: z.string().nullable(),
   email: z.string(),
   emailVerified: z.coerce.date().nullable(),
@@ -1536,18 +1536,18 @@ export const UserOrderByWithRelationInputSchema: z.ZodType<Prisma.UserOrderByWit
 
 export const UserWhereUniqueInputSchema: z.ZodType<Prisma.UserWhereUniqueInput> = z.union([
   z.object({
-    id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),
+    id: z.cuid(),
     email: z.string(),
   }),
   z.object({
-    id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),
+    id: z.cuid(),
   }),
   z.object({
     email: z.string(),
   }),
 ])
 .and(z.strictObject({
-  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
+  id: z.cuid().optional(),
   email: z.string().optional(),
   AND: z.union([ z.lazy(() => UserWhereInputSchema), z.lazy(() => UserWhereInputSchema).array() ]).optional(),
   OR: z.lazy(() => UserWhereInputSchema).array().optional(),
@@ -2898,7 +2898,7 @@ export const MesocycleExerciseTemplateUncheckedUpdateManyInputSchema: z.ZodType<
 });
 
 export const UserCreateInputSchema: z.ZodType<Prisma.UserCreateInput> = z.strictObject({
-  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
+  id: z.cuid().optional(),
   name: z.string().optional().nullable(),
   email: z.string(),
   emailVerified: z.coerce.date().optional().nullable(),
@@ -2915,7 +2915,7 @@ export const UserCreateInputSchema: z.ZodType<Prisma.UserCreateInput> = z.strict
 });
 
 export const UserUncheckedCreateInputSchema: z.ZodType<Prisma.UserUncheckedCreateInput> = z.strictObject({
-  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
+  id: z.cuid().optional(),
   name: z.string().optional().nullable(),
   email: z.string(),
   emailVerified: z.coerce.date().optional().nullable(),
@@ -2932,7 +2932,7 @@ export const UserUncheckedCreateInputSchema: z.ZodType<Prisma.UserUncheckedCreat
 });
 
 export const UserUpdateInputSchema: z.ZodType<Prisma.UserUpdateInput> = z.strictObject({
-  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   emailVerified: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -2949,7 +2949,7 @@ export const UserUpdateInputSchema: z.ZodType<Prisma.UserUpdateInput> = z.strict
 });
 
 export const UserUncheckedUpdateInputSchema: z.ZodType<Prisma.UserUncheckedUpdateInput> = z.strictObject({
-  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   emailVerified: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -2966,7 +2966,7 @@ export const UserUncheckedUpdateInputSchema: z.ZodType<Prisma.UserUncheckedUpdat
 });
 
 export const UserCreateManyInputSchema: z.ZodType<Prisma.UserCreateManyInput> = z.strictObject({
-  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
+  id: z.cuid().optional(),
   name: z.string().optional().nullable(),
   email: z.string(),
   emailVerified: z.coerce.date().optional().nullable(),
@@ -2977,7 +2977,7 @@ export const UserCreateManyInputSchema: z.ZodType<Prisma.UserCreateManyInput> = 
 });
 
 export const UserUpdateManyMutationInputSchema: z.ZodType<Prisma.UserUpdateManyMutationInput> = z.strictObject({
-  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   emailVerified: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -2988,7 +2988,7 @@ export const UserUpdateManyMutationInputSchema: z.ZodType<Prisma.UserUpdateManyM
 });
 
 export const UserUncheckedUpdateManyInputSchema: z.ZodType<Prisma.UserUncheckedUpdateManyInput> = z.strictObject({
-  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   emailVerified: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -6282,7 +6282,7 @@ export const NestedEnumWorkoutStatusNullableWithAggregatesFilterSchema: z.ZodTyp
 });
 
 export const UserCreateWithoutExerciseSplitsInputSchema: z.ZodType<Prisma.UserCreateWithoutExerciseSplitsInput> = z.strictObject({
-  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
+  id: z.cuid().optional(),
   name: z.string().optional().nullable(),
   email: z.string(),
   emailVerified: z.coerce.date().optional().nullable(),
@@ -6298,7 +6298,7 @@ export const UserCreateWithoutExerciseSplitsInputSchema: z.ZodType<Prisma.UserCr
 });
 
 export const UserUncheckedCreateWithoutExerciseSplitsInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutExerciseSplitsInput> = z.strictObject({
-  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
+  id: z.cuid().optional(),
   name: z.string().optional().nullable(),
   email: z.string(),
   emailVerified: z.coerce.date().optional().nullable(),
@@ -6396,7 +6396,7 @@ export const UserUpdateToOneWithWhereWithoutExerciseSplitsInputSchema: z.ZodType
 });
 
 export const UserUpdateWithoutExerciseSplitsInputSchema: z.ZodType<Prisma.UserUpdateWithoutExerciseSplitsInput> = z.strictObject({
-  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   emailVerified: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -6412,7 +6412,7 @@ export const UserUpdateWithoutExerciseSplitsInputSchema: z.ZodType<Prisma.UserUp
 });
 
 export const UserUncheckedUpdateWithoutExerciseSplitsInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutExerciseSplitsInput> = z.strictObject({
-  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   emailVerified: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -6660,7 +6660,7 @@ export const ExerciseSplitDayUncheckedUpdateWithoutExercisesInputSchema: z.ZodTy
 });
 
 export const UserCreateWithoutMesocyclesInputSchema: z.ZodType<Prisma.UserCreateWithoutMesocyclesInput> = z.strictObject({
-  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
+  id: z.cuid().optional(),
   name: z.string().optional().nullable(),
   email: z.string(),
   emailVerified: z.coerce.date().optional().nullable(),
@@ -6676,7 +6676,7 @@ export const UserCreateWithoutMesocyclesInputSchema: z.ZodType<Prisma.UserCreate
 });
 
 export const UserUncheckedCreateWithoutMesocyclesInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutMesocyclesInput> = z.strictObject({
-  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
+  id: z.cuid().optional(),
   name: z.string().optional().nullable(),
   email: z.string(),
   emailVerified: z.coerce.date().optional().nullable(),
@@ -6805,7 +6805,7 @@ export const UserUpdateToOneWithWhereWithoutMesocyclesInputSchema: z.ZodType<Pri
 });
 
 export const UserUpdateWithoutMesocyclesInputSchema: z.ZodType<Prisma.UserUpdateWithoutMesocyclesInput> = z.strictObject({
-  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   emailVerified: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -6821,7 +6821,7 @@ export const UserUpdateWithoutMesocyclesInputSchema: z.ZodType<Prisma.UserUpdate
 });
 
 export const UserUncheckedUpdateWithoutMesocyclesInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutMesocyclesInput> = z.strictObject({
-  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   emailVerified: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -7570,7 +7570,7 @@ export const UserSettingsUncheckedUpdateWithoutUserInputSchema: z.ZodType<Prisma
 });
 
 export const UserCreateWithoutAccountsInputSchema: z.ZodType<Prisma.UserCreateWithoutAccountsInput> = z.strictObject({
-  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
+  id: z.cuid().optional(),
   name: z.string().optional().nullable(),
   email: z.string(),
   emailVerified: z.coerce.date().optional().nullable(),
@@ -7586,7 +7586,7 @@ export const UserCreateWithoutAccountsInputSchema: z.ZodType<Prisma.UserCreateWi
 });
 
 export const UserUncheckedCreateWithoutAccountsInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutAccountsInput> = z.strictObject({
-  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
+  id: z.cuid().optional(),
   name: z.string().optional().nullable(),
   email: z.string(),
   emailVerified: z.coerce.date().optional().nullable(),
@@ -7618,7 +7618,7 @@ export const UserUpdateToOneWithWhereWithoutAccountsInputSchema: z.ZodType<Prism
 });
 
 export const UserUpdateWithoutAccountsInputSchema: z.ZodType<Prisma.UserUpdateWithoutAccountsInput> = z.strictObject({
-  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   emailVerified: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -7634,7 +7634,7 @@ export const UserUpdateWithoutAccountsInputSchema: z.ZodType<Prisma.UserUpdateWi
 });
 
 export const UserUncheckedUpdateWithoutAccountsInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutAccountsInput> = z.strictObject({
-  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   emailVerified: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -7650,7 +7650,7 @@ export const UserUncheckedUpdateWithoutAccountsInputSchema: z.ZodType<Prisma.Use
 });
 
 export const UserCreateWithoutSessionsInputSchema: z.ZodType<Prisma.UserCreateWithoutSessionsInput> = z.strictObject({
-  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
+  id: z.cuid().optional(),
   name: z.string().optional().nullable(),
   email: z.string(),
   emailVerified: z.coerce.date().optional().nullable(),
@@ -7666,7 +7666,7 @@ export const UserCreateWithoutSessionsInputSchema: z.ZodType<Prisma.UserCreateWi
 });
 
 export const UserUncheckedCreateWithoutSessionsInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutSessionsInput> = z.strictObject({
-  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
+  id: z.cuid().optional(),
   name: z.string().optional().nullable(),
   email: z.string(),
   emailVerified: z.coerce.date().optional().nullable(),
@@ -7698,7 +7698,7 @@ export const UserUpdateToOneWithWhereWithoutSessionsInputSchema: z.ZodType<Prism
 });
 
 export const UserUpdateWithoutSessionsInputSchema: z.ZodType<Prisma.UserUpdateWithoutSessionsInput> = z.strictObject({
-  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   emailVerified: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -7714,7 +7714,7 @@ export const UserUpdateWithoutSessionsInputSchema: z.ZodType<Prisma.UserUpdateWi
 });
 
 export const UserUncheckedUpdateWithoutSessionsInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutSessionsInput> = z.strictObject({
-  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   emailVerified: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -7730,7 +7730,7 @@ export const UserUncheckedUpdateWithoutSessionsInputSchema: z.ZodType<Prisma.Use
 });
 
 export const UserCreateWithoutSettingsInputSchema: z.ZodType<Prisma.UserCreateWithoutSettingsInput> = z.strictObject({
-  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
+  id: z.cuid().optional(),
   name: z.string().optional().nullable(),
   email: z.string(),
   emailVerified: z.coerce.date().optional().nullable(),
@@ -7746,7 +7746,7 @@ export const UserCreateWithoutSettingsInputSchema: z.ZodType<Prisma.UserCreateWi
 });
 
 export const UserUncheckedCreateWithoutSettingsInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutSettingsInput> = z.strictObject({
-  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
+  id: z.cuid().optional(),
   name: z.string().optional().nullable(),
   email: z.string(),
   emailVerified: z.coerce.date().optional().nullable(),
@@ -7778,7 +7778,7 @@ export const UserUpdateToOneWithWhereWithoutSettingsInputSchema: z.ZodType<Prism
 });
 
 export const UserUpdateWithoutSettingsInputSchema: z.ZodType<Prisma.UserUpdateWithoutSettingsInput> = z.strictObject({
-  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   emailVerified: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -7794,7 +7794,7 @@ export const UserUpdateWithoutSettingsInputSchema: z.ZodType<Prisma.UserUpdateWi
 });
 
 export const UserUncheckedUpdateWithoutSettingsInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutSettingsInput> = z.strictObject({
-  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   emailVerified: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -7942,7 +7942,7 @@ export const MesocycleUncheckedUpdateWithoutWorkoutsOfMesocycleInputSchema: z.Zo
 });
 
 export const UserCreateWithoutWorkoutsInputSchema: z.ZodType<Prisma.UserCreateWithoutWorkoutsInput> = z.strictObject({
-  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
+  id: z.cuid().optional(),
   name: z.string().optional().nullable(),
   email: z.string(),
   emailVerified: z.coerce.date().optional().nullable(),
@@ -7958,7 +7958,7 @@ export const UserCreateWithoutWorkoutsInputSchema: z.ZodType<Prisma.UserCreateWi
 });
 
 export const UserUncheckedCreateWithoutWorkoutsInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutWorkoutsInput> = z.strictObject({
-  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
+  id: z.cuid().optional(),
   name: z.string().optional().nullable(),
   email: z.string(),
   emailVerified: z.coerce.date().optional().nullable(),
@@ -8063,7 +8063,7 @@ export const UserUpdateToOneWithWhereWithoutWorkoutsInputSchema: z.ZodType<Prism
 });
 
 export const UserUpdateWithoutWorkoutsInputSchema: z.ZodType<Prisma.UserUpdateWithoutWorkoutsInput> = z.strictObject({
-  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   emailVerified: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -8079,7 +8079,7 @@ export const UserUpdateWithoutWorkoutsInputSchema: z.ZodType<Prisma.UserUpdateWi
 });
 
 export const UserUncheckedUpdateWithoutWorkoutsInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutWorkoutsInput> = z.strictObject({
-  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   emailVerified: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
