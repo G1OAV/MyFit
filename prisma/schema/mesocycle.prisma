@@ -1,5 +1,5 @@
 model Mesocycle {
-  id                         String                      @id @default(cuid()) /// @zod.string.cuid2()
+  id                         String                      @id @default(cuid()) 
   name                       String
   user                       User                        @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId                     String
@@ -17,7 +17,7 @@ model Mesocycle {
 }
 
 model MesocycleCyclicSetChange {
-  id                   String      @id @default(cuid()) /// @zod.string.cuid2()
+  id                   String      @id @default(cuid()) 
   mesocycle            Mesocycle   @relation(fields: [mesocycleId], references: [id], onDelete: Cascade)
   mesocycleId          String
   muscleGroup          MuscleGroup
@@ -28,7 +28,7 @@ model MesocycleCyclicSetChange {
 }
 
 model MesocycleExerciseSplitDay {
-  id                         String                      @id @default(cuid()) /// @zod.string.cuid2()
+  id                         String                      @id @default(cuid()) 
   name                       String
   dayIndex                   Int
   isRestDay                  Boolean
@@ -38,7 +38,7 @@ model MesocycleExerciseSplitDay {
 }
 
 model MesocycleExerciseTemplate {
-  id                          String                    @id @default(cuid()) /// @zod.string.cuid2()
+  id                          String                    @id @default(cuid()) 
   name                        String
   exerciseIndex               Int
   targetMuscleGroup           MuscleGroup
