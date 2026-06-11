@@ -16,8 +16,7 @@ const config = {
     kit: {
         // This is now properly using the Cloudflare adapter you imported
         adapter: adapter(),
-        serviceWorker: { register: false },
-        files: { serviceWorker: 'src/service-worker.ts' },
+		serviceWorker: { register: false },
         alias: { '.prisma/client/index-browser': require.resolve('@prisma/client/index-browser') }
     }
 };

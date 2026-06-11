@@ -11,10 +11,8 @@ export default defineConfig({
 	plugins: [
 		sveltekit(),
 		SvelteKitPWA({
-			srcDir: 'src',
 			registerType: 'prompt',
-			strategies: 'injectManifest',
-			filename: 'service-worker.ts',
+			strategies: 'generateSW',
 			scope: '/',
 			base: '/',
 			manifest: {
@@ -482,8 +480,35 @@ export default defineConfig({
 					}
 				]
 			},
-			injectManifest: {
-				globPatterns: ['client/**/*.{js,css,ico,png,svg,ttf,webp,webmanifest,woff}', 'prerendered/**/*.html']
+			workbox: {
+				globPatterns: ['client/**/*.{js,css,ico,png,svg,ttf,webp,webmanifest,woff}', 'prerendered/**/*.html'],
+				navigateFallback: '/offline',
+				navigateFallbackDenylist: [/^\/auth/],
+				cleanupOutdatedCaches: true,
+				skipWaiting: false,
+				clientsClaim: true,
+				runtimeCaching: [
+					{
+						urlPattern: ({ request, url }: { request: Request; url: URL }) => {
+							if (url.pathname.startsWith('/auth')) return false;
+							const cacheFirst = ['style', 'manifest', 'image', 'font'];
+							const prerendered = ['/privacy-policy', '/terms-of-service', '/offline', '/donations', '/docs'];
+							return cacheFirst.includes(request.destination) || prerendered.includes(url.pathname) || url.pathname.includes('~icons');
+						},
+						handler: 'CacheFirst' as const,
+						options: { precacheFallback: { fallbackURL: '/offline' } }
+					},
+					{
+						urlPattern: ({ request, url }: { request: Request; url: URL }) => {
+							if (url.pathname.startsWith('/auth')) return false;
+							const cacheFirst = ['style', 'manifest', 'image', 'font'];
+							const prerendered = ['/privacy-policy', '/terms-of-service', '/offline', '/donations', '/docs'];
+							return !(cacheFirst.includes(request.destination) || prerendered.includes(url.pathname) || url.pathname.includes('~icons'));
+						},
+						handler: 'NetworkOnly' as const,
+						options: { networkTimeoutSeconds: 5, precacheFallback: { fallbackURL: '/offline' } }
+					}
+				]
 			},
 			devOptions: {
 				enabled: true,
