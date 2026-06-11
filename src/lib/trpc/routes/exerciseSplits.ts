@@ -49,7 +49,7 @@ const createOrEditExerciseSplit = async (
 };
 
 export const exerciseSplits = t.router({
-	findById: t.procedure.input(z.string().cuid2()).query(({ input, ctx }) =>
+	findById: t.procedure.input(z.string().cuid()).query(({ input, ctx }) =>
 		prisma.exerciseSplit.findUnique({
 			where: { id: input, userId: ctx.userId },
 			include: {
@@ -64,7 +64,7 @@ export const exerciseSplits = t.router({
 	load: t.procedure
 		.input(
 			z.strictObject({
-				cursorId: z.string().cuid2().optional(),
+				cursorId: z.string().cuid().optional(),
 				searchString: z.string().optional()
 			})
 		)
@@ -92,13 +92,13 @@ export const exerciseSplits = t.router({
 	}),
 
 	editById: t.procedure
-		.input(z.strictObject({ id: z.string().cuid2(), splitData: zodExerciseSplitInput }))
+		.input(z.strictObject({ id: z.string().cuid(), splitData: zodExerciseSplitInput }))
 		.mutation(async ({ input, ctx }) => {
 			await createOrEditExerciseSplit(input.splitData, ctx.userId, input.id);
 			return { message: 'Exercise split edited successfully' };
 		}),
 
-	deleteById: t.procedure.input(z.string().cuid2()).mutation(async ({ input, ctx }) => {
+	deleteById: t.procedure.input(z.string().cuid()).mutation(async ({ input, ctx }) => {
 		await prisma.exerciseSplit.delete({ where: { userId: ctx.userId, id: input } });
 		return { message: 'Exercise split deleted successfully' };
 	})

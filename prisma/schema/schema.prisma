@@ -14,7 +14,7 @@ generator zod {
 }
 
 model User {
-  id             String          @id @default(cuid()) /// @zod.string.cuid2()
+  id             String          @id @default(cuid()) /// @zod.string.cuid()
   name           String?
   email          String          @unique
   emailVerified  DateTime?

@@ -84,7 +84,7 @@ const workoutInputDataSchema = z.object({
 	userBodyweight: z.number(),
 	workoutOfMesocycle: z
 		.object({
-			mesocycle: z.object({ id: z.string().cuid2() }),
+			mesocycle: z.object({ id: z.string().cuid() }),
 			splitDayIndex: z.number().int(),
 			workoutStatus: z.nativeEnum(WorkoutStatus).nullable()
 		})
@@ -100,7 +100,7 @@ const createWorkoutSchema = z.strictObject({
 });
 
 const loadWorkoutsSchema = z.strictObject({
-	cursorId: z.string().cuid2().optional(),
+	cursorId: z.string().cuid().optional(),
 	filters: z
 		.object({
 			startDate: z.date().optional(),
@@ -205,7 +205,7 @@ export const workouts = t.router({
 		return { firstWorkoutDate, lastWorkoutDate, allMesocycles };
 	}),
 
-	findById: t.procedure.input(z.string().cuid2()).query(({ input, ctx }) =>
+	findById: t.procedure.input(z.string().cuid()).query(({ input, ctx }) =>
 		prisma.workout.findUnique({
 			where: { id: input, userId: ctx.userId },
 			include: {
@@ -228,7 +228,7 @@ export const workouts = t.router({
 		})
 	),
 
-	deleteById: t.procedure.input(z.string().cuid2()).mutation(async ({ input, ctx }) => {
+	deleteById: t.procedure.input(z.string().cuid()).mutation(async ({ input, ctx }) => {
 		const workoutToDelete = await prisma.workout.findUniqueOrThrow({
 			where: { userId: ctx.userId, id: input },
 			select: {
@@ -629,7 +629,7 @@ export const workouts = t.router({
 	editById: t.procedure
 		.input(
 			z.strictObject({
-				id: z.string().cuid2(),
+				id: z.string().cuid(),
 				data: createWorkoutSchema,
 				endedAt: z.date().or(z.string().date())
 			})
@@ -690,7 +690,7 @@ export const workouts = t.router({
 		}),
 
 	getExerciseHistory: t.procedure
-		.input(z.strictObject({ exerciseName: z.string(), cursorId: z.string().cuid2().optional() }))
+		.input(z.strictObject({ exerciseName: z.string(), cursorId: z.string().cuid().optional() }))
 		.query(async ({ ctx, input }) => {
 			return await prisma.workoutExercise.findMany({
 				where: { workout: { userId: ctx.userId }, name: input.exerciseName },

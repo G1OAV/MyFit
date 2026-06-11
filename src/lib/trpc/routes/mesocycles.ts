@@ -36,7 +36,7 @@ const zodUpdateExerciseSplitInput = z.strictObject({
 	mesocycleExerciseTemplates: z.array(
 		z.array(MesocycleExerciseTemplateCreateWithoutMesocycleExerciseSplitDayInputSchema)
 	),
-	mesocycleId: z.string().cuid2()
+	mesocycleId: z.string().cuid()
 });
 
 const getActiveMesocycle = async (userId: string) => {
@@ -47,7 +47,7 @@ const getActiveMesocycle = async (userId: string) => {
 };
 
 export const mesocycles = t.router({
-	findById: t.procedure.input(z.string().cuid2()).query(
+	findById: t.procedure.input(z.string().cuid()).query(
 		async ({ input, ctx }) =>
 			await prisma.mesocycle.findUnique({
 				where: { id: input, userId: ctx.userId },
@@ -77,7 +77,7 @@ export const mesocycles = t.router({
 	}),
 
 	load: t.procedure
-		.input(z.object({ cursorId: z.string().cuid2().optional(), searchString: z.string().optional() }))
+		.input(z.object({ cursorId: z.string().cuid().optional(), searchString: z.string().optional() }))
 		.query(async ({ input, ctx }) => {
 			return prisma.mesocycle.findMany({
 				where: { userId: ctx.userId, name: { contains: input.searchString, mode: 'insensitive' } },
@@ -134,7 +134,7 @@ export const mesocycles = t.router({
 	}),
 
 	editById: t.procedure
-		.input(z.strictObject({ id: z.string().cuid2(), mesocycleData: zodMesocycleEditInput }))
+		.input(z.strictObject({ id: z.string().cuid(), mesocycleData: zodMesocycleEditInput }))
 		.mutation(async ({ input, ctx }) => {
 			await prisma.$transaction(async () => {
 				const mesocycle = await prisma.mesocycle.update({
@@ -153,7 +153,7 @@ export const mesocycles = t.router({
 			return { message: 'Mesocycle edited successfully' };
 		}),
 
-	deleteById: t.procedure.input(z.string().cuid2()).mutation(async ({ input, ctx }) => {
+	deleteById: t.procedure.input(z.string().cuid()).mutation(async ({ input, ctx }) => {
 		await prisma.mesocycle.delete({ where: { userId: ctx.userId, id: input } });
 		return { message: 'Mesocycle deleted successfully' };
 	}),
@@ -161,7 +161,7 @@ export const mesocycles = t.router({
 	progressToNextStage: t.procedure
 		.input(
 			z.strictObject({
-				id: z.string().cuid2(),
+				id: z.string().cuid(),
 				startDate: z.date().nullable(),
 				endDate: z.date().nullable()
 			})
