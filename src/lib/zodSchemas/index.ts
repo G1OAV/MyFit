@@ -81,7 +81,7 @@ export type QuotesDisplayModeType = `${z.infer<typeof QuotesDisplayModeSchema>}`
 /////////////////////////////////////////
 
 export const ExerciseSplitSchema = z.object({
-  id: z.cuid(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),
   name: z.string(),
   userId: z.string(),
 })
@@ -93,7 +93,7 @@ export type ExerciseSplit = z.infer<typeof ExerciseSplitSchema>
 /////////////////////////////////////////
 
 export const ExerciseSplitDaySchema = z.object({
-  id: z.cuid(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),
   name: z.string(),
   dayIndex: z.number().int(),
   isRestDay: z.boolean(),
@@ -110,7 +110,7 @@ export const ExerciseTemplateSchema = z.object({
   targetMuscleGroup: MuscleGroupSchema,
   setType: SetTypeSchema,
   changeType: ChangeTypeSchema.nullable(),
-  id: z.cuid(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),
   name: z.string(),
   exerciseIndex: z.number().int(),
   customMuscleGroup: z.string().nullable(),
@@ -131,7 +131,7 @@ export type ExerciseTemplate = z.infer<typeof ExerciseTemplateSchema>
 /////////////////////////////////////////
 
 export const MesocycleSchema = z.object({
-  id: z.cuid(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),
   name: z.string(),
   userId: z.string(),
   exerciseSplitId: z.string().nullable(),
@@ -151,7 +151,7 @@ export type Mesocycle = z.infer<typeof MesocycleSchema>
 
 export const MesocycleCyclicSetChangeSchema = z.object({
   muscleGroup: MuscleGroupSchema,
-  id: z.cuid(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),
   mesocycleId: z.string(),
   customMuscleGroup: z.string().nullable(),
   regardlessOfProgress: z.boolean(),
@@ -166,7 +166,7 @@ export type MesocycleCyclicSetChange = z.infer<typeof MesocycleCyclicSetChangeSc
 /////////////////////////////////////////
 
 export const MesocycleExerciseSplitDaySchema = z.object({
-  id: z.cuid(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),
   name: z.string(),
   dayIndex: z.number().int(),
   isRestDay: z.boolean(),
@@ -183,7 +183,7 @@ export const MesocycleExerciseTemplateSchema = z.object({
   targetMuscleGroup: MuscleGroupSchema,
   setType: SetTypeSchema,
   changeType: ChangeTypeSchema.nullable(),
-  id: z.cuid(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),
   name: z.string(),
   exerciseIndex: z.number().int(),
   customMuscleGroup: z.string().nullable(),
@@ -209,7 +209,7 @@ export type MesocycleExerciseTemplate = z.infer<typeof MesocycleExerciseTemplate
 /////////////////////////////////////////
 
 export const UserSchema = z.object({
-  id: z.cuid(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),
   name: z.string().nullable(),
   email: z.string(),
   emailVerified: z.coerce.date().nullable(),
@@ -288,7 +288,7 @@ export type UserSettings = z.infer<typeof UserSettingsSchema>
 
 export const WorkoutOfMesocycleSchema = z.object({
   workoutStatus: WorkoutStatusSchema.nullable(),
-  id: z.cuid(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),
   workoutId: z.string(),
   mesocycleId: z.string(),
   splitDayIndex: z.number().int(),
@@ -301,7 +301,7 @@ export type WorkoutOfMesocycle = z.infer<typeof WorkoutOfMesocycleSchema>
 /////////////////////////////////////////
 
 export const WorkoutSchema = z.object({
-  id: z.cuid(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),
   userBodyweight: z.number(),
   startedAt: z.coerce.date(),
   endedAt: z.coerce.date(),
@@ -319,7 +319,7 @@ export const WorkoutExerciseSchema = z.object({
   targetMuscleGroup: MuscleGroupSchema,
   setType: SetTypeSchema,
   changeType: ChangeTypeSchema.nullable(),
-  id: z.cuid(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),
   exerciseIndex: z.number().int(),
   name: z.string(),
   workoutId: z.string(),
@@ -344,7 +344,7 @@ export type WorkoutExercise = z.infer<typeof WorkoutExerciseSchema>
 /////////////////////////////////////////
 
 export const WorkoutExerciseSetSchema = z.object({
-  id: z.cuid(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),
   setIndex: z.number().int(),
   workoutExerciseId: z.string(),
   reps: z.number().int(),
@@ -360,7 +360,7 @@ export type WorkoutExerciseSet = z.infer<typeof WorkoutExerciseSetSchema>
 /////////////////////////////////////////
 
 export const WorkoutExerciseMiniSetSchema = z.object({
-  id: z.cuid(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),
   miniSetIndex: z.number().int(),
   reps: z.number().int(),
   load: z.number(),
@@ -927,10 +927,10 @@ export const ExerciseSplitOrderByWithRelationInputSchema: z.ZodType<Prisma.Exerc
 });
 
 export const ExerciseSplitWhereUniqueInputSchema: z.ZodType<Prisma.ExerciseSplitWhereUniqueInput> = z.object({
-  id: z.cuid(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),
 })
 .and(z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   AND: z.union([ z.lazy(() => ExerciseSplitWhereInputSchema), z.lazy(() => ExerciseSplitWhereInputSchema).array() ]).optional(),
   OR: z.lazy(() => ExerciseSplitWhereInputSchema).array().optional(),
   NOT: z.union([ z.lazy(() => ExerciseSplitWhereInputSchema), z.lazy(() => ExerciseSplitWhereInputSchema).array() ]).optional(),
@@ -983,10 +983,10 @@ export const ExerciseSplitDayOrderByWithRelationInputSchema: z.ZodType<Prisma.Ex
 });
 
 export const ExerciseSplitDayWhereUniqueInputSchema: z.ZodType<Prisma.ExerciseSplitDayWhereUniqueInput> = z.object({
-  id: z.cuid(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),
 })
 .and(z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   AND: z.union([ z.lazy(() => ExerciseSplitDayWhereInputSchema), z.lazy(() => ExerciseSplitDayWhereInputSchema).array() ]).optional(),
   OR: z.lazy(() => ExerciseSplitDayWhereInputSchema).array().optional(),
   NOT: z.union([ z.lazy(() => ExerciseSplitDayWhereInputSchema), z.lazy(() => ExerciseSplitDayWhereInputSchema).array() ]).optional(),
@@ -1064,10 +1064,10 @@ export const ExerciseTemplateOrderByWithRelationInputSchema: z.ZodType<Prisma.Ex
 });
 
 export const ExerciseTemplateWhereUniqueInputSchema: z.ZodType<Prisma.ExerciseTemplateWhereUniqueInput> = z.object({
-  id: z.cuid(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),
 })
 .and(z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   AND: z.union([ z.lazy(() => ExerciseTemplateWhereInputSchema), z.lazy(() => ExerciseTemplateWhereInputSchema).array() ]).optional(),
   OR: z.lazy(() => ExerciseTemplateWhereInputSchema).array().optional(),
   NOT: z.union([ z.lazy(() => ExerciseTemplateWhereInputSchema), z.lazy(() => ExerciseTemplateWhereInputSchema).array() ]).optional(),
@@ -1172,10 +1172,10 @@ export const MesocycleOrderByWithRelationInputSchema: z.ZodType<Prisma.Mesocycle
 });
 
 export const MesocycleWhereUniqueInputSchema: z.ZodType<Prisma.MesocycleWhereUniqueInput> = z.object({
-  id: z.cuid(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),
 })
 .and(z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   AND: z.union([ z.lazy(() => MesocycleWhereInputSchema), z.lazy(() => MesocycleWhereInputSchema).array() ]).optional(),
   OR: z.lazy(() => MesocycleWhereInputSchema).array().optional(),
   NOT: z.union([ z.lazy(() => MesocycleWhereInputSchema), z.lazy(() => MesocycleWhereInputSchema).array() ]).optional(),
@@ -1255,10 +1255,10 @@ export const MesocycleCyclicSetChangeOrderByWithRelationInputSchema: z.ZodType<P
 });
 
 export const MesocycleCyclicSetChangeWhereUniqueInputSchema: z.ZodType<Prisma.MesocycleCyclicSetChangeWhereUniqueInput> = z.object({
-  id: z.cuid(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),
 })
 .and(z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   AND: z.union([ z.lazy(() => MesocycleCyclicSetChangeWhereInputSchema), z.lazy(() => MesocycleCyclicSetChangeWhereInputSchema).array() ]).optional(),
   OR: z.lazy(() => MesocycleCyclicSetChangeWhereInputSchema).array().optional(),
   NOT: z.union([ z.lazy(() => MesocycleCyclicSetChangeWhereInputSchema), z.lazy(() => MesocycleCyclicSetChangeWhereInputSchema).array() ]).optional(),
@@ -1323,10 +1323,10 @@ export const MesocycleExerciseSplitDayOrderByWithRelationInputSchema: z.ZodType<
 });
 
 export const MesocycleExerciseSplitDayWhereUniqueInputSchema: z.ZodType<Prisma.MesocycleExerciseSplitDayWhereUniqueInput> = z.object({
-  id: z.cuid(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),
 })
 .and(z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   AND: z.union([ z.lazy(() => MesocycleExerciseSplitDayWhereInputSchema), z.lazy(() => MesocycleExerciseSplitDayWhereInputSchema).array() ]).optional(),
   OR: z.lazy(() => MesocycleExerciseSplitDayWhereInputSchema).array().optional(),
   NOT: z.union([ z.lazy(() => MesocycleExerciseSplitDayWhereInputSchema), z.lazy(() => MesocycleExerciseSplitDayWhereInputSchema).array() ]).optional(),
@@ -1414,10 +1414,10 @@ export const MesocycleExerciseTemplateOrderByWithRelationInputSchema: z.ZodType<
 });
 
 export const MesocycleExerciseTemplateWhereUniqueInputSchema: z.ZodType<Prisma.MesocycleExerciseTemplateWhereUniqueInput> = z.object({
-  id: z.cuid(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),
 })
 .and(z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   AND: z.union([ z.lazy(() => MesocycleExerciseTemplateWhereInputSchema), z.lazy(() => MesocycleExerciseTemplateWhereInputSchema).array() ]).optional(),
   OR: z.lazy(() => MesocycleExerciseTemplateWhereInputSchema).array().optional(),
   NOT: z.union([ z.lazy(() => MesocycleExerciseTemplateWhereInputSchema), z.lazy(() => MesocycleExerciseTemplateWhereInputSchema).array() ]).optional(),
@@ -1536,18 +1536,18 @@ export const UserOrderByWithRelationInputSchema: z.ZodType<Prisma.UserOrderByWit
 
 export const UserWhereUniqueInputSchema: z.ZodType<Prisma.UserWhereUniqueInput> = z.union([
   z.object({
-    id: z.cuid(),
+    id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),
     email: z.string(),
   }),
   z.object({
-    id: z.cuid(),
+    id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),
   }),
   z.object({
     email: z.string(),
   }),
 ])
 .and(z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   email: z.string().optional(),
   AND: z.union([ z.lazy(() => UserWhereInputSchema), z.lazy(() => UserWhereInputSchema).array() ]).optional(),
   OR: z.lazy(() => UserWhereInputSchema).array().optional(),
@@ -1886,18 +1886,18 @@ export const WorkoutOfMesocycleOrderByWithRelationInputSchema: z.ZodType<Prisma.
 
 export const WorkoutOfMesocycleWhereUniqueInputSchema: z.ZodType<Prisma.WorkoutOfMesocycleWhereUniqueInput> = z.union([
   z.object({
-    id: z.cuid(),
+    id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),
     workoutId: z.string(),
   }),
   z.object({
-    id: z.cuid(),
+    id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),
   }),
   z.object({
     workoutId: z.string(),
   }),
 ])
 .and(z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   workoutId: z.string().optional(),
   AND: z.union([ z.lazy(() => WorkoutOfMesocycleWhereInputSchema), z.lazy(() => WorkoutOfMesocycleWhereInputSchema).array() ]).optional(),
   OR: z.lazy(() => WorkoutOfMesocycleWhereInputSchema).array().optional(),
@@ -1961,10 +1961,10 @@ export const WorkoutOrderByWithRelationInputSchema: z.ZodType<Prisma.WorkoutOrde
 });
 
 export const WorkoutWhereUniqueInputSchema: z.ZodType<Prisma.WorkoutWhereUniqueInput> = z.object({
-  id: z.cuid(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),
 })
 .and(z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   AND: z.union([ z.lazy(() => WorkoutWhereInputSchema), z.lazy(() => WorkoutWhereInputSchema).array() ]).optional(),
   OR: z.lazy(() => WorkoutWhereInputSchema).array().optional(),
   NOT: z.union([ z.lazy(() => WorkoutWhereInputSchema), z.lazy(() => WorkoutWhereInputSchema).array() ]).optional(),
@@ -2056,10 +2056,10 @@ export const WorkoutExerciseOrderByWithRelationInputSchema: z.ZodType<Prisma.Wor
 });
 
 export const WorkoutExerciseWhereUniqueInputSchema: z.ZodType<Prisma.WorkoutExerciseWhereUniqueInput> = z.object({
-  id: z.cuid(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),
 })
 .and(z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   AND: z.union([ z.lazy(() => WorkoutExerciseWhereInputSchema), z.lazy(() => WorkoutExerciseWhereInputSchema).array() ]).optional(),
   OR: z.lazy(() => WorkoutExerciseWhereInputSchema).array().optional(),
   NOT: z.union([ z.lazy(() => WorkoutExerciseWhereInputSchema), z.lazy(() => WorkoutExerciseWhereInputSchema).array() ]).optional(),
@@ -2165,10 +2165,10 @@ export const WorkoutExerciseSetOrderByWithRelationInputSchema: z.ZodType<Prisma.
 });
 
 export const WorkoutExerciseSetWhereUniqueInputSchema: z.ZodType<Prisma.WorkoutExerciseSetWhereUniqueInput> = z.object({
-  id: z.cuid(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),
 })
 .and(z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   AND: z.union([ z.lazy(() => WorkoutExerciseSetWhereInputSchema), z.lazy(() => WorkoutExerciseSetWhereInputSchema).array() ]).optional(),
   OR: z.lazy(() => WorkoutExerciseSetWhereInputSchema).array().optional(),
   NOT: z.union([ z.lazy(() => WorkoutExerciseSetWhereInputSchema), z.lazy(() => WorkoutExerciseSetWhereInputSchema).array() ]).optional(),
@@ -2234,10 +2234,10 @@ export const WorkoutExerciseMiniSetOrderByWithRelationInputSchema: z.ZodType<Pri
 });
 
 export const WorkoutExerciseMiniSetWhereUniqueInputSchema: z.ZodType<Prisma.WorkoutExerciseMiniSetWhereUniqueInput> = z.object({
-  id: z.cuid(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),
 })
 .and(z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   AND: z.union([ z.lazy(() => WorkoutExerciseMiniSetWhereInputSchema), z.lazy(() => WorkoutExerciseMiniSetWhereInputSchema).array() ]).optional(),
   OR: z.lazy(() => WorkoutExerciseMiniSetWhereInputSchema).array().optional(),
   NOT: z.union([ z.lazy(() => WorkoutExerciseMiniSetWhereInputSchema), z.lazy(() => WorkoutExerciseMiniSetWhereInputSchema).array() ]).optional(),
@@ -2276,7 +2276,7 @@ export const WorkoutExerciseMiniSetScalarWhereWithAggregatesInputSchema: z.ZodTy
 });
 
 export const ExerciseSplitCreateInputSchema: z.ZodType<Prisma.ExerciseSplitCreateInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   user: z.lazy(() => UserCreateNestedOneWithoutExerciseSplitsInputSchema),
   exerciseSplitDays: z.lazy(() => ExerciseSplitDayCreateNestedManyWithoutExerciseSplitInputSchema).optional(),
@@ -2284,7 +2284,7 @@ export const ExerciseSplitCreateInputSchema: z.ZodType<Prisma.ExerciseSplitCreat
 });
 
 export const ExerciseSplitUncheckedCreateInputSchema: z.ZodType<Prisma.ExerciseSplitUncheckedCreateInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   userId: z.string(),
   exerciseSplitDays: z.lazy(() => ExerciseSplitDayUncheckedCreateNestedManyWithoutExerciseSplitInputSchema).optional(),
@@ -2292,7 +2292,7 @@ export const ExerciseSplitUncheckedCreateInputSchema: z.ZodType<Prisma.ExerciseS
 });
 
 export const ExerciseSplitUpdateInputSchema: z.ZodType<Prisma.ExerciseSplitUpdateInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   user: z.lazy(() => UserUpdateOneRequiredWithoutExerciseSplitsNestedInputSchema).optional(),
   exerciseSplitDays: z.lazy(() => ExerciseSplitDayUpdateManyWithoutExerciseSplitNestedInputSchema).optional(),
@@ -2300,7 +2300,7 @@ export const ExerciseSplitUpdateInputSchema: z.ZodType<Prisma.ExerciseSplitUpdat
 });
 
 export const ExerciseSplitUncheckedUpdateInputSchema: z.ZodType<Prisma.ExerciseSplitUncheckedUpdateInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   userId: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   exerciseSplitDays: z.lazy(() => ExerciseSplitDayUncheckedUpdateManyWithoutExerciseSplitNestedInputSchema).optional(),
@@ -2308,24 +2308,24 @@ export const ExerciseSplitUncheckedUpdateInputSchema: z.ZodType<Prisma.ExerciseS
 });
 
 export const ExerciseSplitCreateManyInputSchema: z.ZodType<Prisma.ExerciseSplitCreateManyInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   userId: z.string(),
 });
 
 export const ExerciseSplitUpdateManyMutationInputSchema: z.ZodType<Prisma.ExerciseSplitUpdateManyMutationInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
 });
 
 export const ExerciseSplitUncheckedUpdateManyInputSchema: z.ZodType<Prisma.ExerciseSplitUncheckedUpdateManyInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   userId: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
 });
 
 export const ExerciseSplitDayCreateInputSchema: z.ZodType<Prisma.ExerciseSplitDayCreateInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   dayIndex: z.number().int(),
   isRestDay: z.boolean(),
@@ -2334,7 +2334,7 @@ export const ExerciseSplitDayCreateInputSchema: z.ZodType<Prisma.ExerciseSplitDa
 });
 
 export const ExerciseSplitDayUncheckedCreateInputSchema: z.ZodType<Prisma.ExerciseSplitDayUncheckedCreateInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   dayIndex: z.number().int(),
   isRestDay: z.boolean(),
@@ -2343,7 +2343,7 @@ export const ExerciseSplitDayUncheckedCreateInputSchema: z.ZodType<Prisma.Exerci
 });
 
 export const ExerciseSplitDayUpdateInputSchema: z.ZodType<Prisma.ExerciseSplitDayUpdateInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   dayIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   isRestDay: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
@@ -2352,7 +2352,7 @@ export const ExerciseSplitDayUpdateInputSchema: z.ZodType<Prisma.ExerciseSplitDa
 });
 
 export const ExerciseSplitDayUncheckedUpdateInputSchema: z.ZodType<Prisma.ExerciseSplitDayUncheckedUpdateInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   dayIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   isRestDay: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
@@ -2361,7 +2361,7 @@ export const ExerciseSplitDayUncheckedUpdateInputSchema: z.ZodType<Prisma.Exerci
 });
 
 export const ExerciseSplitDayCreateManyInputSchema: z.ZodType<Prisma.ExerciseSplitDayCreateManyInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   dayIndex: z.number().int(),
   isRestDay: z.boolean(),
@@ -2369,14 +2369,14 @@ export const ExerciseSplitDayCreateManyInputSchema: z.ZodType<Prisma.ExerciseSpl
 });
 
 export const ExerciseSplitDayUpdateManyMutationInputSchema: z.ZodType<Prisma.ExerciseSplitDayUpdateManyMutationInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   dayIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   isRestDay: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
 });
 
 export const ExerciseSplitDayUncheckedUpdateManyInputSchema: z.ZodType<Prisma.ExerciseSplitDayUncheckedUpdateManyInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   dayIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   isRestDay: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
@@ -2384,7 +2384,7 @@ export const ExerciseSplitDayUncheckedUpdateManyInputSchema: z.ZodType<Prisma.Ex
 });
 
 export const ExerciseTemplateCreateInputSchema: z.ZodType<Prisma.ExerciseTemplateCreateInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   exerciseIndex: z.number().int(),
   targetMuscleGroup: z.lazy(() => MuscleGroupSchema),
@@ -2402,7 +2402,7 @@ export const ExerciseTemplateCreateInputSchema: z.ZodType<Prisma.ExerciseTemplat
 });
 
 export const ExerciseTemplateUncheckedCreateInputSchema: z.ZodType<Prisma.ExerciseTemplateUncheckedCreateInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   exerciseIndex: z.number().int(),
   targetMuscleGroup: z.lazy(() => MuscleGroupSchema),
@@ -2420,7 +2420,7 @@ export const ExerciseTemplateUncheckedCreateInputSchema: z.ZodType<Prisma.Exerci
 });
 
 export const ExerciseTemplateUpdateInputSchema: z.ZodType<Prisma.ExerciseTemplateUpdateInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   exerciseIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   targetMuscleGroup: z.union([ z.lazy(() => MuscleGroupSchema), z.lazy(() => EnumMuscleGroupFieldUpdateOperationsInputSchema) ]).optional(),
@@ -2438,7 +2438,7 @@ export const ExerciseTemplateUpdateInputSchema: z.ZodType<Prisma.ExerciseTemplat
 });
 
 export const ExerciseTemplateUncheckedUpdateInputSchema: z.ZodType<Prisma.ExerciseTemplateUncheckedUpdateInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   exerciseIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   targetMuscleGroup: z.union([ z.lazy(() => MuscleGroupSchema), z.lazy(() => EnumMuscleGroupFieldUpdateOperationsInputSchema) ]).optional(),
@@ -2456,7 +2456,7 @@ export const ExerciseTemplateUncheckedUpdateInputSchema: z.ZodType<Prisma.Exerci
 });
 
 export const ExerciseTemplateCreateManyInputSchema: z.ZodType<Prisma.ExerciseTemplateCreateManyInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   exerciseIndex: z.number().int(),
   targetMuscleGroup: z.lazy(() => MuscleGroupSchema),
@@ -2474,7 +2474,7 @@ export const ExerciseTemplateCreateManyInputSchema: z.ZodType<Prisma.ExerciseTem
 });
 
 export const ExerciseTemplateUpdateManyMutationInputSchema: z.ZodType<Prisma.ExerciseTemplateUpdateManyMutationInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   exerciseIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   targetMuscleGroup: z.union([ z.lazy(() => MuscleGroupSchema), z.lazy(() => EnumMuscleGroupFieldUpdateOperationsInputSchema) ]).optional(),
@@ -2491,7 +2491,7 @@ export const ExerciseTemplateUpdateManyMutationInputSchema: z.ZodType<Prisma.Exe
 });
 
 export const ExerciseTemplateUncheckedUpdateManyInputSchema: z.ZodType<Prisma.ExerciseTemplateUncheckedUpdateManyInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   exerciseIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   targetMuscleGroup: z.union([ z.lazy(() => MuscleGroupSchema), z.lazy(() => EnumMuscleGroupFieldUpdateOperationsInputSchema) ]).optional(),
@@ -2509,7 +2509,7 @@ export const ExerciseTemplateUncheckedUpdateManyInputSchema: z.ZodType<Prisma.Ex
 });
 
 export const MesocycleCreateInputSchema: z.ZodType<Prisma.MesocycleCreateInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   RIRProgression: z.union([ z.lazy(() => MesocycleCreateRIRProgressionInputSchema), z.number().int().array() ]).optional(),
   startDate: z.coerce.date().optional().nullable(),
@@ -2525,7 +2525,7 @@ export const MesocycleCreateInputSchema: z.ZodType<Prisma.MesocycleCreateInput> 
 });
 
 export const MesocycleUncheckedCreateInputSchema: z.ZodType<Prisma.MesocycleUncheckedCreateInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   userId: z.string(),
   exerciseSplitId: z.string().optional().nullable(),
@@ -2541,7 +2541,7 @@ export const MesocycleUncheckedCreateInputSchema: z.ZodType<Prisma.MesocycleUnch
 });
 
 export const MesocycleUpdateInputSchema: z.ZodType<Prisma.MesocycleUpdateInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   RIRProgression: z.union([ z.lazy(() => MesocycleUpdateRIRProgressionInputSchema), z.number().int().array() ]).optional(),
   startDate: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -2557,7 +2557,7 @@ export const MesocycleUpdateInputSchema: z.ZodType<Prisma.MesocycleUpdateInput> 
 });
 
 export const MesocycleUncheckedUpdateInputSchema: z.ZodType<Prisma.MesocycleUncheckedUpdateInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   userId: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   exerciseSplitId: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -2573,7 +2573,7 @@ export const MesocycleUncheckedUpdateInputSchema: z.ZodType<Prisma.MesocycleUnch
 });
 
 export const MesocycleCreateManyInputSchema: z.ZodType<Prisma.MesocycleCreateManyInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   userId: z.string(),
   exerciseSplitId: z.string().optional().nullable(),
@@ -2586,7 +2586,7 @@ export const MesocycleCreateManyInputSchema: z.ZodType<Prisma.MesocycleCreateMan
 });
 
 export const MesocycleUpdateManyMutationInputSchema: z.ZodType<Prisma.MesocycleUpdateManyMutationInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   RIRProgression: z.union([ z.lazy(() => MesocycleUpdateRIRProgressionInputSchema), z.number().int().array() ]).optional(),
   startDate: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -2597,7 +2597,7 @@ export const MesocycleUpdateManyMutationInputSchema: z.ZodType<Prisma.MesocycleU
 });
 
 export const MesocycleUncheckedUpdateManyInputSchema: z.ZodType<Prisma.MesocycleUncheckedUpdateManyInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   userId: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   exerciseSplitId: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -2610,7 +2610,7 @@ export const MesocycleUncheckedUpdateManyInputSchema: z.ZodType<Prisma.Mesocycle
 });
 
 export const MesocycleCyclicSetChangeCreateInputSchema: z.ZodType<Prisma.MesocycleCyclicSetChangeCreateInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   muscleGroup: z.lazy(() => MuscleGroupSchema),
   customMuscleGroup: z.string().optional().nullable(),
   regardlessOfProgress: z.boolean(),
@@ -2620,7 +2620,7 @@ export const MesocycleCyclicSetChangeCreateInputSchema: z.ZodType<Prisma.Mesocyc
 });
 
 export const MesocycleCyclicSetChangeUncheckedCreateInputSchema: z.ZodType<Prisma.MesocycleCyclicSetChangeUncheckedCreateInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   mesocycleId: z.string(),
   muscleGroup: z.lazy(() => MuscleGroupSchema),
   customMuscleGroup: z.string().optional().nullable(),
@@ -2630,7 +2630,7 @@ export const MesocycleCyclicSetChangeUncheckedCreateInputSchema: z.ZodType<Prism
 });
 
 export const MesocycleCyclicSetChangeUpdateInputSchema: z.ZodType<Prisma.MesocycleCyclicSetChangeUpdateInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   muscleGroup: z.union([ z.lazy(() => MuscleGroupSchema), z.lazy(() => EnumMuscleGroupFieldUpdateOperationsInputSchema) ]).optional(),
   customMuscleGroup: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   regardlessOfProgress: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
@@ -2640,7 +2640,7 @@ export const MesocycleCyclicSetChangeUpdateInputSchema: z.ZodType<Prisma.Mesocyc
 });
 
 export const MesocycleCyclicSetChangeUncheckedUpdateInputSchema: z.ZodType<Prisma.MesocycleCyclicSetChangeUncheckedUpdateInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   mesocycleId: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   muscleGroup: z.union([ z.lazy(() => MuscleGroupSchema), z.lazy(() => EnumMuscleGroupFieldUpdateOperationsInputSchema) ]).optional(),
   customMuscleGroup: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -2650,7 +2650,7 @@ export const MesocycleCyclicSetChangeUncheckedUpdateInputSchema: z.ZodType<Prism
 });
 
 export const MesocycleCyclicSetChangeCreateManyInputSchema: z.ZodType<Prisma.MesocycleCyclicSetChangeCreateManyInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   mesocycleId: z.string(),
   muscleGroup: z.lazy(() => MuscleGroupSchema),
   customMuscleGroup: z.string().optional().nullable(),
@@ -2660,7 +2660,7 @@ export const MesocycleCyclicSetChangeCreateManyInputSchema: z.ZodType<Prisma.Mes
 });
 
 export const MesocycleCyclicSetChangeUpdateManyMutationInputSchema: z.ZodType<Prisma.MesocycleCyclicSetChangeUpdateManyMutationInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   muscleGroup: z.union([ z.lazy(() => MuscleGroupSchema), z.lazy(() => EnumMuscleGroupFieldUpdateOperationsInputSchema) ]).optional(),
   customMuscleGroup: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   regardlessOfProgress: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
@@ -2669,7 +2669,7 @@ export const MesocycleCyclicSetChangeUpdateManyMutationInputSchema: z.ZodType<Pr
 });
 
 export const MesocycleCyclicSetChangeUncheckedUpdateManyInputSchema: z.ZodType<Prisma.MesocycleCyclicSetChangeUncheckedUpdateManyInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   mesocycleId: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   muscleGroup: z.union([ z.lazy(() => MuscleGroupSchema), z.lazy(() => EnumMuscleGroupFieldUpdateOperationsInputSchema) ]).optional(),
   customMuscleGroup: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -2679,7 +2679,7 @@ export const MesocycleCyclicSetChangeUncheckedUpdateManyInputSchema: z.ZodType<P
 });
 
 export const MesocycleExerciseSplitDayCreateInputSchema: z.ZodType<Prisma.MesocycleExerciseSplitDayCreateInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   dayIndex: z.number().int(),
   isRestDay: z.boolean(),
@@ -2688,7 +2688,7 @@ export const MesocycleExerciseSplitDayCreateInputSchema: z.ZodType<Prisma.Mesocy
 });
 
 export const MesocycleExerciseSplitDayUncheckedCreateInputSchema: z.ZodType<Prisma.MesocycleExerciseSplitDayUncheckedCreateInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   dayIndex: z.number().int(),
   isRestDay: z.boolean(),
@@ -2697,7 +2697,7 @@ export const MesocycleExerciseSplitDayUncheckedCreateInputSchema: z.ZodType<Pris
 });
 
 export const MesocycleExerciseSplitDayUpdateInputSchema: z.ZodType<Prisma.MesocycleExerciseSplitDayUpdateInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   dayIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   isRestDay: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
@@ -2706,7 +2706,7 @@ export const MesocycleExerciseSplitDayUpdateInputSchema: z.ZodType<Prisma.Mesocy
 });
 
 export const MesocycleExerciseSplitDayUncheckedUpdateInputSchema: z.ZodType<Prisma.MesocycleExerciseSplitDayUncheckedUpdateInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   dayIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   isRestDay: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
@@ -2715,7 +2715,7 @@ export const MesocycleExerciseSplitDayUncheckedUpdateInputSchema: z.ZodType<Pris
 });
 
 export const MesocycleExerciseSplitDayCreateManyInputSchema: z.ZodType<Prisma.MesocycleExerciseSplitDayCreateManyInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   dayIndex: z.number().int(),
   isRestDay: z.boolean(),
@@ -2723,14 +2723,14 @@ export const MesocycleExerciseSplitDayCreateManyInputSchema: z.ZodType<Prisma.Me
 });
 
 export const MesocycleExerciseSplitDayUpdateManyMutationInputSchema: z.ZodType<Prisma.MesocycleExerciseSplitDayUpdateManyMutationInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   dayIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   isRestDay: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
 });
 
 export const MesocycleExerciseSplitDayUncheckedUpdateManyInputSchema: z.ZodType<Prisma.MesocycleExerciseSplitDayUncheckedUpdateManyInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   dayIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   isRestDay: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
@@ -2738,7 +2738,7 @@ export const MesocycleExerciseSplitDayUncheckedUpdateManyInputSchema: z.ZodType<
 });
 
 export const MesocycleExerciseTemplateCreateInputSchema: z.ZodType<Prisma.MesocycleExerciseTemplateCreateInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   exerciseIndex: z.number().int(),
   targetMuscleGroup: z.lazy(() => MuscleGroupSchema),
@@ -2761,7 +2761,7 @@ export const MesocycleExerciseTemplateCreateInputSchema: z.ZodType<Prisma.Mesocy
 });
 
 export const MesocycleExerciseTemplateUncheckedCreateInputSchema: z.ZodType<Prisma.MesocycleExerciseTemplateUncheckedCreateInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   exerciseIndex: z.number().int(),
   targetMuscleGroup: z.lazy(() => MuscleGroupSchema),
@@ -2784,7 +2784,7 @@ export const MesocycleExerciseTemplateUncheckedCreateInputSchema: z.ZodType<Pris
 });
 
 export const MesocycleExerciseTemplateUpdateInputSchema: z.ZodType<Prisma.MesocycleExerciseTemplateUpdateInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   exerciseIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   targetMuscleGroup: z.union([ z.lazy(() => MuscleGroupSchema), z.lazy(() => EnumMuscleGroupFieldUpdateOperationsInputSchema) ]).optional(),
@@ -2807,7 +2807,7 @@ export const MesocycleExerciseTemplateUpdateInputSchema: z.ZodType<Prisma.Mesocy
 });
 
 export const MesocycleExerciseTemplateUncheckedUpdateInputSchema: z.ZodType<Prisma.MesocycleExerciseTemplateUncheckedUpdateInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   exerciseIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   targetMuscleGroup: z.union([ z.lazy(() => MuscleGroupSchema), z.lazy(() => EnumMuscleGroupFieldUpdateOperationsInputSchema) ]).optional(),
@@ -2830,7 +2830,7 @@ export const MesocycleExerciseTemplateUncheckedUpdateInputSchema: z.ZodType<Pris
 });
 
 export const MesocycleExerciseTemplateCreateManyInputSchema: z.ZodType<Prisma.MesocycleExerciseTemplateCreateManyInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   exerciseIndex: z.number().int(),
   targetMuscleGroup: z.lazy(() => MuscleGroupSchema),
@@ -2853,7 +2853,7 @@ export const MesocycleExerciseTemplateCreateManyInputSchema: z.ZodType<Prisma.Me
 });
 
 export const MesocycleExerciseTemplateUpdateManyMutationInputSchema: z.ZodType<Prisma.MesocycleExerciseTemplateUpdateManyMutationInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   exerciseIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   targetMuscleGroup: z.union([ z.lazy(() => MuscleGroupSchema), z.lazy(() => EnumMuscleGroupFieldUpdateOperationsInputSchema) ]).optional(),
@@ -2875,7 +2875,7 @@ export const MesocycleExerciseTemplateUpdateManyMutationInputSchema: z.ZodType<P
 });
 
 export const MesocycleExerciseTemplateUncheckedUpdateManyInputSchema: z.ZodType<Prisma.MesocycleExerciseTemplateUncheckedUpdateManyInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   exerciseIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   targetMuscleGroup: z.union([ z.lazy(() => MuscleGroupSchema), z.lazy(() => EnumMuscleGroupFieldUpdateOperationsInputSchema) ]).optional(),
@@ -2898,7 +2898,7 @@ export const MesocycleExerciseTemplateUncheckedUpdateManyInputSchema: z.ZodType<
 });
 
 export const UserCreateInputSchema: z.ZodType<Prisma.UserCreateInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string().optional().nullable(),
   email: z.string(),
   emailVerified: z.coerce.date().optional().nullable(),
@@ -2915,7 +2915,7 @@ export const UserCreateInputSchema: z.ZodType<Prisma.UserCreateInput> = z.strict
 });
 
 export const UserUncheckedCreateInputSchema: z.ZodType<Prisma.UserUncheckedCreateInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string().optional().nullable(),
   email: z.string(),
   emailVerified: z.coerce.date().optional().nullable(),
@@ -2932,7 +2932,7 @@ export const UserUncheckedCreateInputSchema: z.ZodType<Prisma.UserUncheckedCreat
 });
 
 export const UserUpdateInputSchema: z.ZodType<Prisma.UserUpdateInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   emailVerified: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -2949,7 +2949,7 @@ export const UserUpdateInputSchema: z.ZodType<Prisma.UserUpdateInput> = z.strict
 });
 
 export const UserUncheckedUpdateInputSchema: z.ZodType<Prisma.UserUncheckedUpdateInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   emailVerified: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -2966,7 +2966,7 @@ export const UserUncheckedUpdateInputSchema: z.ZodType<Prisma.UserUncheckedUpdat
 });
 
 export const UserCreateManyInputSchema: z.ZodType<Prisma.UserCreateManyInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string().optional().nullable(),
   email: z.string(),
   emailVerified: z.coerce.date().optional().nullable(),
@@ -2977,7 +2977,7 @@ export const UserCreateManyInputSchema: z.ZodType<Prisma.UserCreateManyInput> = 
 });
 
 export const UserUpdateManyMutationInputSchema: z.ZodType<Prisma.UserUpdateManyMutationInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   emailVerified: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -2988,7 +2988,7 @@ export const UserUpdateManyMutationInputSchema: z.ZodType<Prisma.UserUpdateManyM
 });
 
 export const UserUncheckedUpdateManyInputSchema: z.ZodType<Prisma.UserUncheckedUpdateManyInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   emailVerified: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -3255,7 +3255,7 @@ export const UserSettingsUncheckedUpdateManyInputSchema: z.ZodType<Prisma.UserSe
 });
 
 export const WorkoutOfMesocycleCreateInputSchema: z.ZodType<Prisma.WorkoutOfMesocycleCreateInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   splitDayIndex: z.number().int(),
   workoutStatus: z.lazy(() => WorkoutStatusSchema).optional().nullable(),
   workout: z.lazy(() => WorkoutCreateNestedOneWithoutWorkoutOfMesocycleInputSchema),
@@ -3263,7 +3263,7 @@ export const WorkoutOfMesocycleCreateInputSchema: z.ZodType<Prisma.WorkoutOfMeso
 });
 
 export const WorkoutOfMesocycleUncheckedCreateInputSchema: z.ZodType<Prisma.WorkoutOfMesocycleUncheckedCreateInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   workoutId: z.string(),
   mesocycleId: z.string(),
   splitDayIndex: z.number().int(),
@@ -3271,7 +3271,7 @@ export const WorkoutOfMesocycleUncheckedCreateInputSchema: z.ZodType<Prisma.Work
 });
 
 export const WorkoutOfMesocycleUpdateInputSchema: z.ZodType<Prisma.WorkoutOfMesocycleUpdateInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   splitDayIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   workoutStatus: z.union([ z.lazy(() => WorkoutStatusSchema), z.lazy(() => NullableEnumWorkoutStatusFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   workout: z.lazy(() => WorkoutUpdateOneRequiredWithoutWorkoutOfMesocycleNestedInputSchema).optional(),
@@ -3279,7 +3279,7 @@ export const WorkoutOfMesocycleUpdateInputSchema: z.ZodType<Prisma.WorkoutOfMeso
 });
 
 export const WorkoutOfMesocycleUncheckedUpdateInputSchema: z.ZodType<Prisma.WorkoutOfMesocycleUncheckedUpdateInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   workoutId: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   mesocycleId: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   splitDayIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
@@ -3287,7 +3287,7 @@ export const WorkoutOfMesocycleUncheckedUpdateInputSchema: z.ZodType<Prisma.Work
 });
 
 export const WorkoutOfMesocycleCreateManyInputSchema: z.ZodType<Prisma.WorkoutOfMesocycleCreateManyInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   workoutId: z.string(),
   mesocycleId: z.string(),
   splitDayIndex: z.number().int(),
@@ -3295,13 +3295,13 @@ export const WorkoutOfMesocycleCreateManyInputSchema: z.ZodType<Prisma.WorkoutOf
 });
 
 export const WorkoutOfMesocycleUpdateManyMutationInputSchema: z.ZodType<Prisma.WorkoutOfMesocycleUpdateManyMutationInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   splitDayIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   workoutStatus: z.union([ z.lazy(() => WorkoutStatusSchema), z.lazy(() => NullableEnumWorkoutStatusFieldUpdateOperationsInputSchema) ]).optional().nullable(),
 });
 
 export const WorkoutOfMesocycleUncheckedUpdateManyInputSchema: z.ZodType<Prisma.WorkoutOfMesocycleUncheckedUpdateManyInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   workoutId: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   mesocycleId: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   splitDayIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
@@ -3309,7 +3309,7 @@ export const WorkoutOfMesocycleUncheckedUpdateManyInputSchema: z.ZodType<Prisma.
 });
 
 export const WorkoutCreateInputSchema: z.ZodType<Prisma.WorkoutCreateInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   userBodyweight: z.number(),
   startedAt: z.coerce.date(),
   endedAt: z.coerce.date(),
@@ -3320,7 +3320,7 @@ export const WorkoutCreateInputSchema: z.ZodType<Prisma.WorkoutCreateInput> = z.
 });
 
 export const WorkoutUncheckedCreateInputSchema: z.ZodType<Prisma.WorkoutUncheckedCreateInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   userBodyweight: z.number(),
   startedAt: z.coerce.date(),
   endedAt: z.coerce.date(),
@@ -3331,7 +3331,7 @@ export const WorkoutUncheckedCreateInputSchema: z.ZodType<Prisma.WorkoutUnchecke
 });
 
 export const WorkoutUpdateInputSchema: z.ZodType<Prisma.WorkoutUpdateInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   userBodyweight: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
   startedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   endedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -3342,7 +3342,7 @@ export const WorkoutUpdateInputSchema: z.ZodType<Prisma.WorkoutUpdateInput> = z.
 });
 
 export const WorkoutUncheckedUpdateInputSchema: z.ZodType<Prisma.WorkoutUncheckedUpdateInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   userBodyweight: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
   startedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   endedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -3353,7 +3353,7 @@ export const WorkoutUncheckedUpdateInputSchema: z.ZodType<Prisma.WorkoutUnchecke
 });
 
 export const WorkoutCreateManyInputSchema: z.ZodType<Prisma.WorkoutCreateManyInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   userBodyweight: z.number(),
   startedAt: z.coerce.date(),
   endedAt: z.coerce.date(),
@@ -3362,7 +3362,7 @@ export const WorkoutCreateManyInputSchema: z.ZodType<Prisma.WorkoutCreateManyInp
 });
 
 export const WorkoutUpdateManyMutationInputSchema: z.ZodType<Prisma.WorkoutUpdateManyMutationInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   userBodyweight: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
   startedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   endedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -3370,7 +3370,7 @@ export const WorkoutUpdateManyMutationInputSchema: z.ZodType<Prisma.WorkoutUpdat
 });
 
 export const WorkoutUncheckedUpdateManyInputSchema: z.ZodType<Prisma.WorkoutUncheckedUpdateManyInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   userBodyweight: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
   startedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   endedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -3379,7 +3379,7 @@ export const WorkoutUncheckedUpdateManyInputSchema: z.ZodType<Prisma.WorkoutUnch
 });
 
 export const WorkoutExerciseCreateInputSchema: z.ZodType<Prisma.WorkoutExerciseCreateInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   exerciseIndex: z.number().int(),
   name: z.string(),
   targetMuscleGroup: z.lazy(() => MuscleGroupSchema),
@@ -3402,7 +3402,7 @@ export const WorkoutExerciseCreateInputSchema: z.ZodType<Prisma.WorkoutExerciseC
 });
 
 export const WorkoutExerciseUncheckedCreateInputSchema: z.ZodType<Prisma.WorkoutExerciseUncheckedCreateInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   exerciseIndex: z.number().int(),
   name: z.string(),
   workoutId: z.string(),
@@ -3425,7 +3425,7 @@ export const WorkoutExerciseUncheckedCreateInputSchema: z.ZodType<Prisma.Workout
 });
 
 export const WorkoutExerciseUpdateInputSchema: z.ZodType<Prisma.WorkoutExerciseUpdateInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   exerciseIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   targetMuscleGroup: z.union([ z.lazy(() => MuscleGroupSchema), z.lazy(() => EnumMuscleGroupFieldUpdateOperationsInputSchema) ]).optional(),
@@ -3448,7 +3448,7 @@ export const WorkoutExerciseUpdateInputSchema: z.ZodType<Prisma.WorkoutExerciseU
 });
 
 export const WorkoutExerciseUncheckedUpdateInputSchema: z.ZodType<Prisma.WorkoutExerciseUncheckedUpdateInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   exerciseIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   workoutId: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
@@ -3471,7 +3471,7 @@ export const WorkoutExerciseUncheckedUpdateInputSchema: z.ZodType<Prisma.Workout
 });
 
 export const WorkoutExerciseCreateManyInputSchema: z.ZodType<Prisma.WorkoutExerciseCreateManyInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   exerciseIndex: z.number().int(),
   name: z.string(),
   workoutId: z.string(),
@@ -3493,7 +3493,7 @@ export const WorkoutExerciseCreateManyInputSchema: z.ZodType<Prisma.WorkoutExerc
 });
 
 export const WorkoutExerciseUpdateManyMutationInputSchema: z.ZodType<Prisma.WorkoutExerciseUpdateManyMutationInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   exerciseIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   targetMuscleGroup: z.union([ z.lazy(() => MuscleGroupSchema), z.lazy(() => EnumMuscleGroupFieldUpdateOperationsInputSchema) ]).optional(),
@@ -3514,7 +3514,7 @@ export const WorkoutExerciseUpdateManyMutationInputSchema: z.ZodType<Prisma.Work
 });
 
 export const WorkoutExerciseUncheckedUpdateManyInputSchema: z.ZodType<Prisma.WorkoutExerciseUncheckedUpdateManyInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   exerciseIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   workoutId: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
@@ -3536,7 +3536,7 @@ export const WorkoutExerciseUncheckedUpdateManyInputSchema: z.ZodType<Prisma.Wor
 });
 
 export const WorkoutExerciseSetCreateInputSchema: z.ZodType<Prisma.WorkoutExerciseSetCreateInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   setIndex: z.number().int(),
   reps: z.number().int(),
   load: z.number(),
@@ -3547,7 +3547,7 @@ export const WorkoutExerciseSetCreateInputSchema: z.ZodType<Prisma.WorkoutExerci
 });
 
 export const WorkoutExerciseSetUncheckedCreateInputSchema: z.ZodType<Prisma.WorkoutExerciseSetUncheckedCreateInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   setIndex: z.number().int(),
   workoutExerciseId: z.string(),
   reps: z.number().int(),
@@ -3558,7 +3558,7 @@ export const WorkoutExerciseSetUncheckedCreateInputSchema: z.ZodType<Prisma.Work
 });
 
 export const WorkoutExerciseSetUpdateInputSchema: z.ZodType<Prisma.WorkoutExerciseSetUpdateInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   setIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   reps: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   load: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
@@ -3569,7 +3569,7 @@ export const WorkoutExerciseSetUpdateInputSchema: z.ZodType<Prisma.WorkoutExerci
 });
 
 export const WorkoutExerciseSetUncheckedUpdateInputSchema: z.ZodType<Prisma.WorkoutExerciseSetUncheckedUpdateInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   setIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   workoutExerciseId: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   reps: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
@@ -3580,7 +3580,7 @@ export const WorkoutExerciseSetUncheckedUpdateInputSchema: z.ZodType<Prisma.Work
 });
 
 export const WorkoutExerciseSetCreateManyInputSchema: z.ZodType<Prisma.WorkoutExerciseSetCreateManyInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   setIndex: z.number().int(),
   workoutExerciseId: z.string(),
   reps: z.number().int(),
@@ -3590,7 +3590,7 @@ export const WorkoutExerciseSetCreateManyInputSchema: z.ZodType<Prisma.WorkoutEx
 });
 
 export const WorkoutExerciseSetUpdateManyMutationInputSchema: z.ZodType<Prisma.WorkoutExerciseSetUpdateManyMutationInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   setIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   reps: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   load: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
@@ -3599,7 +3599,7 @@ export const WorkoutExerciseSetUpdateManyMutationInputSchema: z.ZodType<Prisma.W
 });
 
 export const WorkoutExerciseSetUncheckedUpdateManyInputSchema: z.ZodType<Prisma.WorkoutExerciseSetUncheckedUpdateManyInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   setIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   workoutExerciseId: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   reps: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
@@ -3609,7 +3609,7 @@ export const WorkoutExerciseSetUncheckedUpdateManyInputSchema: z.ZodType<Prisma.
 });
 
 export const WorkoutExerciseMiniSetCreateInputSchema: z.ZodType<Prisma.WorkoutExerciseMiniSetCreateInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   miniSetIndex: z.number().int(),
   reps: z.number().int(),
   load: z.number(),
@@ -3618,7 +3618,7 @@ export const WorkoutExerciseMiniSetCreateInputSchema: z.ZodType<Prisma.WorkoutEx
 });
 
 export const WorkoutExerciseMiniSetUncheckedCreateInputSchema: z.ZodType<Prisma.WorkoutExerciseMiniSetUncheckedCreateInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   miniSetIndex: z.number().int(),
   reps: z.number().int(),
   load: z.number(),
@@ -3627,7 +3627,7 @@ export const WorkoutExerciseMiniSetUncheckedCreateInputSchema: z.ZodType<Prisma.
 });
 
 export const WorkoutExerciseMiniSetUpdateInputSchema: z.ZodType<Prisma.WorkoutExerciseMiniSetUpdateInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   miniSetIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   reps: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   load: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
@@ -3636,7 +3636,7 @@ export const WorkoutExerciseMiniSetUpdateInputSchema: z.ZodType<Prisma.WorkoutEx
 });
 
 export const WorkoutExerciseMiniSetUncheckedUpdateInputSchema: z.ZodType<Prisma.WorkoutExerciseMiniSetUncheckedUpdateInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   miniSetIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   reps: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   load: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
@@ -3645,7 +3645,7 @@ export const WorkoutExerciseMiniSetUncheckedUpdateInputSchema: z.ZodType<Prisma.
 });
 
 export const WorkoutExerciseMiniSetCreateManyInputSchema: z.ZodType<Prisma.WorkoutExerciseMiniSetCreateManyInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   miniSetIndex: z.number().int(),
   reps: z.number().int(),
   load: z.number(),
@@ -3654,7 +3654,7 @@ export const WorkoutExerciseMiniSetCreateManyInputSchema: z.ZodType<Prisma.Worko
 });
 
 export const WorkoutExerciseMiniSetUpdateManyMutationInputSchema: z.ZodType<Prisma.WorkoutExerciseMiniSetUpdateManyMutationInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   miniSetIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   reps: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   load: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
@@ -3662,7 +3662,7 @@ export const WorkoutExerciseMiniSetUpdateManyMutationInputSchema: z.ZodType<Pris
 });
 
 export const WorkoutExerciseMiniSetUncheckedUpdateManyInputSchema: z.ZodType<Prisma.WorkoutExerciseMiniSetUncheckedUpdateManyInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   miniSetIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   reps: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   load: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
@@ -6282,7 +6282,7 @@ export const NestedEnumWorkoutStatusNullableWithAggregatesFilterSchema: z.ZodTyp
 });
 
 export const UserCreateWithoutExerciseSplitsInputSchema: z.ZodType<Prisma.UserCreateWithoutExerciseSplitsInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string().optional().nullable(),
   email: z.string(),
   emailVerified: z.coerce.date().optional().nullable(),
@@ -6298,7 +6298,7 @@ export const UserCreateWithoutExerciseSplitsInputSchema: z.ZodType<Prisma.UserCr
 });
 
 export const UserUncheckedCreateWithoutExerciseSplitsInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutExerciseSplitsInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string().optional().nullable(),
   email: z.string(),
   emailVerified: z.coerce.date().optional().nullable(),
@@ -6319,7 +6319,7 @@ export const UserCreateOrConnectWithoutExerciseSplitsInputSchema: z.ZodType<Pris
 });
 
 export const ExerciseSplitDayCreateWithoutExerciseSplitInputSchema: z.ZodType<Prisma.ExerciseSplitDayCreateWithoutExerciseSplitInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   dayIndex: z.number().int(),
   isRestDay: z.boolean(),
@@ -6327,7 +6327,7 @@ export const ExerciseSplitDayCreateWithoutExerciseSplitInputSchema: z.ZodType<Pr
 });
 
 export const ExerciseSplitDayUncheckedCreateWithoutExerciseSplitInputSchema: z.ZodType<Prisma.ExerciseSplitDayUncheckedCreateWithoutExerciseSplitInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   dayIndex: z.number().int(),
   isRestDay: z.boolean(),
@@ -6345,7 +6345,7 @@ export const ExerciseSplitDayCreateManyExerciseSplitInputEnvelopeSchema: z.ZodTy
 });
 
 export const MesocycleCreateWithoutExerciseSplitInputSchema: z.ZodType<Prisma.MesocycleCreateWithoutExerciseSplitInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   RIRProgression: z.union([ z.lazy(() => MesocycleCreateRIRProgressionInputSchema), z.number().int().array() ]).optional(),
   startDate: z.coerce.date().optional().nullable(),
@@ -6360,7 +6360,7 @@ export const MesocycleCreateWithoutExerciseSplitInputSchema: z.ZodType<Prisma.Me
 });
 
 export const MesocycleUncheckedCreateWithoutExerciseSplitInputSchema: z.ZodType<Prisma.MesocycleUncheckedCreateWithoutExerciseSplitInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   userId: z.string(),
   RIRProgression: z.union([ z.lazy(() => MesocycleCreateRIRProgressionInputSchema), z.number().int().array() ]).optional(),
@@ -6396,7 +6396,7 @@ export const UserUpdateToOneWithWhereWithoutExerciseSplitsInputSchema: z.ZodType
 });
 
 export const UserUpdateWithoutExerciseSplitsInputSchema: z.ZodType<Prisma.UserUpdateWithoutExerciseSplitsInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   emailVerified: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -6412,7 +6412,7 @@ export const UserUpdateWithoutExerciseSplitsInputSchema: z.ZodType<Prisma.UserUp
 });
 
 export const UserUncheckedUpdateWithoutExerciseSplitsInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutExerciseSplitsInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   emailVerified: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -6487,7 +6487,7 @@ export const MesocycleScalarWhereInputSchema: z.ZodType<Prisma.MesocycleScalarWh
 });
 
 export const ExerciseTemplateCreateWithoutExerciseSplitDayInputSchema: z.ZodType<Prisma.ExerciseTemplateCreateWithoutExerciseSplitDayInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   exerciseIndex: z.number().int(),
   targetMuscleGroup: z.lazy(() => MuscleGroupSchema),
@@ -6504,7 +6504,7 @@ export const ExerciseTemplateCreateWithoutExerciseSplitDayInputSchema: z.ZodType
 });
 
 export const ExerciseTemplateUncheckedCreateWithoutExerciseSplitDayInputSchema: z.ZodType<Prisma.ExerciseTemplateUncheckedCreateWithoutExerciseSplitDayInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   exerciseIndex: z.number().int(),
   targetMuscleGroup: z.lazy(() => MuscleGroupSchema),
@@ -6531,14 +6531,14 @@ export const ExerciseTemplateCreateManyExerciseSplitDayInputEnvelopeSchema: z.Zo
 });
 
 export const ExerciseSplitCreateWithoutExerciseSplitDaysInputSchema: z.ZodType<Prisma.ExerciseSplitCreateWithoutExerciseSplitDaysInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   user: z.lazy(() => UserCreateNestedOneWithoutExerciseSplitsInputSchema),
   usedByMesocycles: z.lazy(() => MesocycleCreateNestedManyWithoutExerciseSplitInputSchema).optional(),
 });
 
 export const ExerciseSplitUncheckedCreateWithoutExerciseSplitDaysInputSchema: z.ZodType<Prisma.ExerciseSplitUncheckedCreateWithoutExerciseSplitDaysInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   userId: z.string(),
   usedByMesocycles: z.lazy(() => MesocycleUncheckedCreateNestedManyWithoutExerciseSplitInputSchema).optional(),
@@ -6598,21 +6598,21 @@ export const ExerciseSplitUpdateToOneWithWhereWithoutExerciseSplitDaysInputSchem
 });
 
 export const ExerciseSplitUpdateWithoutExerciseSplitDaysInputSchema: z.ZodType<Prisma.ExerciseSplitUpdateWithoutExerciseSplitDaysInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   user: z.lazy(() => UserUpdateOneRequiredWithoutExerciseSplitsNestedInputSchema).optional(),
   usedByMesocycles: z.lazy(() => MesocycleUpdateManyWithoutExerciseSplitNestedInputSchema).optional(),
 });
 
 export const ExerciseSplitUncheckedUpdateWithoutExerciseSplitDaysInputSchema: z.ZodType<Prisma.ExerciseSplitUncheckedUpdateWithoutExerciseSplitDaysInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   userId: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   usedByMesocycles: z.lazy(() => MesocycleUncheckedUpdateManyWithoutExerciseSplitNestedInputSchema).optional(),
 });
 
 export const ExerciseSplitDayCreateWithoutExercisesInputSchema: z.ZodType<Prisma.ExerciseSplitDayCreateWithoutExercisesInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   dayIndex: z.number().int(),
   isRestDay: z.boolean(),
@@ -6620,7 +6620,7 @@ export const ExerciseSplitDayCreateWithoutExercisesInputSchema: z.ZodType<Prisma
 });
 
 export const ExerciseSplitDayUncheckedCreateWithoutExercisesInputSchema: z.ZodType<Prisma.ExerciseSplitDayUncheckedCreateWithoutExercisesInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   dayIndex: z.number().int(),
   isRestDay: z.boolean(),
@@ -6644,7 +6644,7 @@ export const ExerciseSplitDayUpdateToOneWithWhereWithoutExercisesInputSchema: z.
 });
 
 export const ExerciseSplitDayUpdateWithoutExercisesInputSchema: z.ZodType<Prisma.ExerciseSplitDayUpdateWithoutExercisesInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   dayIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   isRestDay: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
@@ -6652,7 +6652,7 @@ export const ExerciseSplitDayUpdateWithoutExercisesInputSchema: z.ZodType<Prisma
 });
 
 export const ExerciseSplitDayUncheckedUpdateWithoutExercisesInputSchema: z.ZodType<Prisma.ExerciseSplitDayUncheckedUpdateWithoutExercisesInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   dayIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   isRestDay: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
@@ -6660,7 +6660,7 @@ export const ExerciseSplitDayUncheckedUpdateWithoutExercisesInputSchema: z.ZodTy
 });
 
 export const UserCreateWithoutMesocyclesInputSchema: z.ZodType<Prisma.UserCreateWithoutMesocyclesInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string().optional().nullable(),
   email: z.string(),
   emailVerified: z.coerce.date().optional().nullable(),
@@ -6676,7 +6676,7 @@ export const UserCreateWithoutMesocyclesInputSchema: z.ZodType<Prisma.UserCreate
 });
 
 export const UserUncheckedCreateWithoutMesocyclesInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutMesocyclesInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string().optional().nullable(),
   email: z.string(),
   emailVerified: z.coerce.date().optional().nullable(),
@@ -6697,14 +6697,14 @@ export const UserCreateOrConnectWithoutMesocyclesInputSchema: z.ZodType<Prisma.U
 });
 
 export const ExerciseSplitCreateWithoutUsedByMesocyclesInputSchema: z.ZodType<Prisma.ExerciseSplitCreateWithoutUsedByMesocyclesInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   user: z.lazy(() => UserCreateNestedOneWithoutExerciseSplitsInputSchema),
   exerciseSplitDays: z.lazy(() => ExerciseSplitDayCreateNestedManyWithoutExerciseSplitInputSchema).optional(),
 });
 
 export const ExerciseSplitUncheckedCreateWithoutUsedByMesocyclesInputSchema: z.ZodType<Prisma.ExerciseSplitUncheckedCreateWithoutUsedByMesocyclesInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   userId: z.string(),
   exerciseSplitDays: z.lazy(() => ExerciseSplitDayUncheckedCreateNestedManyWithoutExerciseSplitInputSchema).optional(),
@@ -6716,7 +6716,7 @@ export const ExerciseSplitCreateOrConnectWithoutUsedByMesocyclesInputSchema: z.Z
 });
 
 export const MesocycleExerciseSplitDayCreateWithoutMesocycleInputSchema: z.ZodType<Prisma.MesocycleExerciseSplitDayCreateWithoutMesocycleInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   dayIndex: z.number().int(),
   isRestDay: z.boolean(),
@@ -6724,7 +6724,7 @@ export const MesocycleExerciseSplitDayCreateWithoutMesocycleInputSchema: z.ZodTy
 });
 
 export const MesocycleExerciseSplitDayUncheckedCreateWithoutMesocycleInputSchema: z.ZodType<Prisma.MesocycleExerciseSplitDayUncheckedCreateWithoutMesocycleInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   dayIndex: z.number().int(),
   isRestDay: z.boolean(),
@@ -6742,7 +6742,7 @@ export const MesocycleExerciseSplitDayCreateManyMesocycleInputEnvelopeSchema: z.
 });
 
 export const MesocycleCyclicSetChangeCreateWithoutMesocycleInputSchema: z.ZodType<Prisma.MesocycleCyclicSetChangeCreateWithoutMesocycleInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   muscleGroup: z.lazy(() => MuscleGroupSchema),
   customMuscleGroup: z.string().optional().nullable(),
   regardlessOfProgress: z.boolean(),
@@ -6751,7 +6751,7 @@ export const MesocycleCyclicSetChangeCreateWithoutMesocycleInputSchema: z.ZodTyp
 });
 
 export const MesocycleCyclicSetChangeUncheckedCreateWithoutMesocycleInputSchema: z.ZodType<Prisma.MesocycleCyclicSetChangeUncheckedCreateWithoutMesocycleInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   muscleGroup: z.lazy(() => MuscleGroupSchema),
   customMuscleGroup: z.string().optional().nullable(),
   regardlessOfProgress: z.boolean(),
@@ -6770,14 +6770,14 @@ export const MesocycleCyclicSetChangeCreateManyMesocycleInputEnvelopeSchema: z.Z
 });
 
 export const WorkoutOfMesocycleCreateWithoutMesocycleInputSchema: z.ZodType<Prisma.WorkoutOfMesocycleCreateWithoutMesocycleInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   splitDayIndex: z.number().int(),
   workoutStatus: z.lazy(() => WorkoutStatusSchema).optional().nullable(),
   workout: z.lazy(() => WorkoutCreateNestedOneWithoutWorkoutOfMesocycleInputSchema),
 });
 
 export const WorkoutOfMesocycleUncheckedCreateWithoutMesocycleInputSchema: z.ZodType<Prisma.WorkoutOfMesocycleUncheckedCreateWithoutMesocycleInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   workoutId: z.string(),
   splitDayIndex: z.number().int(),
   workoutStatus: z.lazy(() => WorkoutStatusSchema).optional().nullable(),
@@ -6805,7 +6805,7 @@ export const UserUpdateToOneWithWhereWithoutMesocyclesInputSchema: z.ZodType<Pri
 });
 
 export const UserUpdateWithoutMesocyclesInputSchema: z.ZodType<Prisma.UserUpdateWithoutMesocyclesInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   emailVerified: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -6821,7 +6821,7 @@ export const UserUpdateWithoutMesocyclesInputSchema: z.ZodType<Prisma.UserUpdate
 });
 
 export const UserUncheckedUpdateWithoutMesocyclesInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutMesocyclesInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   emailVerified: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -6848,14 +6848,14 @@ export const ExerciseSplitUpdateToOneWithWhereWithoutUsedByMesocyclesInputSchema
 });
 
 export const ExerciseSplitUpdateWithoutUsedByMesocyclesInputSchema: z.ZodType<Prisma.ExerciseSplitUpdateWithoutUsedByMesocyclesInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   user: z.lazy(() => UserUpdateOneRequiredWithoutExerciseSplitsNestedInputSchema).optional(),
   exerciseSplitDays: z.lazy(() => ExerciseSplitDayUpdateManyWithoutExerciseSplitNestedInputSchema).optional(),
 });
 
 export const ExerciseSplitUncheckedUpdateWithoutUsedByMesocyclesInputSchema: z.ZodType<Prisma.ExerciseSplitUncheckedUpdateWithoutUsedByMesocyclesInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   userId: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   exerciseSplitDays: z.lazy(() => ExerciseSplitDayUncheckedUpdateManyWithoutExerciseSplitNestedInputSchema).optional(),
@@ -6945,7 +6945,7 @@ export const WorkoutOfMesocycleScalarWhereInputSchema: z.ZodType<Prisma.WorkoutO
 });
 
 export const MesocycleCreateWithoutMesocycleCyclicSetChangesInputSchema: z.ZodType<Prisma.MesocycleCreateWithoutMesocycleCyclicSetChangesInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   RIRProgression: z.union([ z.lazy(() => MesocycleCreateRIRProgressionInputSchema), z.number().int().array() ]).optional(),
   startDate: z.coerce.date().optional().nullable(),
@@ -6960,7 +6960,7 @@ export const MesocycleCreateWithoutMesocycleCyclicSetChangesInputSchema: z.ZodTy
 });
 
 export const MesocycleUncheckedCreateWithoutMesocycleCyclicSetChangesInputSchema: z.ZodType<Prisma.MesocycleUncheckedCreateWithoutMesocycleCyclicSetChangesInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   userId: z.string(),
   exerciseSplitId: z.string().optional().nullable(),
@@ -6991,7 +6991,7 @@ export const MesocycleUpdateToOneWithWhereWithoutMesocycleCyclicSetChangesInputS
 });
 
 export const MesocycleUpdateWithoutMesocycleCyclicSetChangesInputSchema: z.ZodType<Prisma.MesocycleUpdateWithoutMesocycleCyclicSetChangesInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   RIRProgression: z.union([ z.lazy(() => MesocycleUpdateRIRProgressionInputSchema), z.number().int().array() ]).optional(),
   startDate: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -7006,7 +7006,7 @@ export const MesocycleUpdateWithoutMesocycleCyclicSetChangesInputSchema: z.ZodTy
 });
 
 export const MesocycleUncheckedUpdateWithoutMesocycleCyclicSetChangesInputSchema: z.ZodType<Prisma.MesocycleUncheckedUpdateWithoutMesocycleCyclicSetChangesInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   userId: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   exerciseSplitId: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -7021,7 +7021,7 @@ export const MesocycleUncheckedUpdateWithoutMesocycleCyclicSetChangesInputSchema
 });
 
 export const MesocycleCreateWithoutMesocycleExerciseSplitDaysInputSchema: z.ZodType<Prisma.MesocycleCreateWithoutMesocycleExerciseSplitDaysInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   RIRProgression: z.union([ z.lazy(() => MesocycleCreateRIRProgressionInputSchema), z.number().int().array() ]).optional(),
   startDate: z.coerce.date().optional().nullable(),
@@ -7036,7 +7036,7 @@ export const MesocycleCreateWithoutMesocycleExerciseSplitDaysInputSchema: z.ZodT
 });
 
 export const MesocycleUncheckedCreateWithoutMesocycleExerciseSplitDaysInputSchema: z.ZodType<Prisma.MesocycleUncheckedCreateWithoutMesocycleExerciseSplitDaysInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   userId: z.string(),
   exerciseSplitId: z.string().optional().nullable(),
@@ -7056,7 +7056,7 @@ export const MesocycleCreateOrConnectWithoutMesocycleExerciseSplitDaysInputSchem
 });
 
 export const MesocycleExerciseTemplateCreateWithoutMesocycleExerciseSplitDayInputSchema: z.ZodType<Prisma.MesocycleExerciseTemplateCreateWithoutMesocycleExerciseSplitDayInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   exerciseIndex: z.number().int(),
   targetMuscleGroup: z.lazy(() => MuscleGroupSchema),
@@ -7078,7 +7078,7 @@ export const MesocycleExerciseTemplateCreateWithoutMesocycleExerciseSplitDayInpu
 });
 
 export const MesocycleExerciseTemplateUncheckedCreateWithoutMesocycleExerciseSplitDayInputSchema: z.ZodType<Prisma.MesocycleExerciseTemplateUncheckedCreateWithoutMesocycleExerciseSplitDayInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   exerciseIndex: z.number().int(),
   targetMuscleGroup: z.lazy(() => MuscleGroupSchema),
@@ -7121,7 +7121,7 @@ export const MesocycleUpdateToOneWithWhereWithoutMesocycleExerciseSplitDaysInput
 });
 
 export const MesocycleUpdateWithoutMesocycleExerciseSplitDaysInputSchema: z.ZodType<Prisma.MesocycleUpdateWithoutMesocycleExerciseSplitDaysInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   RIRProgression: z.union([ z.lazy(() => MesocycleUpdateRIRProgressionInputSchema), z.number().int().array() ]).optional(),
   startDate: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -7136,7 +7136,7 @@ export const MesocycleUpdateWithoutMesocycleExerciseSplitDaysInputSchema: z.ZodT
 });
 
 export const MesocycleUncheckedUpdateWithoutMesocycleExerciseSplitDaysInputSchema: z.ZodType<Prisma.MesocycleUncheckedUpdateWithoutMesocycleExerciseSplitDaysInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   userId: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   exerciseSplitId: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -7193,7 +7193,7 @@ export const MesocycleExerciseTemplateScalarWhereInputSchema: z.ZodType<Prisma.M
 });
 
 export const MesocycleExerciseSplitDayCreateWithoutMesocycleSplitDayExercisesInputSchema: z.ZodType<Prisma.MesocycleExerciseSplitDayCreateWithoutMesocycleSplitDayExercisesInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   dayIndex: z.number().int(),
   isRestDay: z.boolean(),
@@ -7201,7 +7201,7 @@ export const MesocycleExerciseSplitDayCreateWithoutMesocycleSplitDayExercisesInp
 });
 
 export const MesocycleExerciseSplitDayUncheckedCreateWithoutMesocycleSplitDayExercisesInputSchema: z.ZodType<Prisma.MesocycleExerciseSplitDayUncheckedCreateWithoutMesocycleSplitDayExercisesInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   dayIndex: z.number().int(),
   isRestDay: z.boolean(),
@@ -7225,7 +7225,7 @@ export const MesocycleExerciseSplitDayUpdateToOneWithWhereWithoutMesocycleSplitD
 });
 
 export const MesocycleExerciseSplitDayUpdateWithoutMesocycleSplitDayExercisesInputSchema: z.ZodType<Prisma.MesocycleExerciseSplitDayUpdateWithoutMesocycleSplitDayExercisesInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   dayIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   isRestDay: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
@@ -7233,7 +7233,7 @@ export const MesocycleExerciseSplitDayUpdateWithoutMesocycleSplitDayExercisesInp
 });
 
 export const MesocycleExerciseSplitDayUncheckedUpdateWithoutMesocycleSplitDayExercisesInputSchema: z.ZodType<Prisma.MesocycleExerciseSplitDayUncheckedUpdateWithoutMesocycleSplitDayExercisesInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   dayIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   isRestDay: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
@@ -7305,14 +7305,14 @@ export const SessionCreateManyUserInputEnvelopeSchema: z.ZodType<Prisma.SessionC
 });
 
 export const ExerciseSplitCreateWithoutUserInputSchema: z.ZodType<Prisma.ExerciseSplitCreateWithoutUserInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   exerciseSplitDays: z.lazy(() => ExerciseSplitDayCreateNestedManyWithoutExerciseSplitInputSchema).optional(),
   usedByMesocycles: z.lazy(() => MesocycleCreateNestedManyWithoutExerciseSplitInputSchema).optional(),
 });
 
 export const ExerciseSplitUncheckedCreateWithoutUserInputSchema: z.ZodType<Prisma.ExerciseSplitUncheckedCreateWithoutUserInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   exerciseSplitDays: z.lazy(() => ExerciseSplitDayUncheckedCreateNestedManyWithoutExerciseSplitInputSchema).optional(),
   usedByMesocycles: z.lazy(() => MesocycleUncheckedCreateNestedManyWithoutExerciseSplitInputSchema).optional(),
@@ -7329,7 +7329,7 @@ export const ExerciseSplitCreateManyUserInputEnvelopeSchema: z.ZodType<Prisma.Ex
 });
 
 export const MesocycleCreateWithoutUserInputSchema: z.ZodType<Prisma.MesocycleCreateWithoutUserInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   RIRProgression: z.union([ z.lazy(() => MesocycleCreateRIRProgressionInputSchema), z.number().int().array() ]).optional(),
   startDate: z.coerce.date().optional().nullable(),
@@ -7344,7 +7344,7 @@ export const MesocycleCreateWithoutUserInputSchema: z.ZodType<Prisma.MesocycleCr
 });
 
 export const MesocycleUncheckedCreateWithoutUserInputSchema: z.ZodType<Prisma.MesocycleUncheckedCreateWithoutUserInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   exerciseSplitId: z.string().optional().nullable(),
   RIRProgression: z.union([ z.lazy(() => MesocycleCreateRIRProgressionInputSchema), z.number().int().array() ]).optional(),
@@ -7369,7 +7369,7 @@ export const MesocycleCreateManyUserInputEnvelopeSchema: z.ZodType<Prisma.Mesocy
 });
 
 export const WorkoutCreateWithoutUserInputSchema: z.ZodType<Prisma.WorkoutCreateWithoutUserInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   userBodyweight: z.number(),
   startedAt: z.coerce.date(),
   endedAt: z.coerce.date(),
@@ -7379,7 +7379,7 @@ export const WorkoutCreateWithoutUserInputSchema: z.ZodType<Prisma.WorkoutCreate
 });
 
 export const WorkoutUncheckedCreateWithoutUserInputSchema: z.ZodType<Prisma.WorkoutUncheckedCreateWithoutUserInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   userBodyweight: z.number(),
   startedAt: z.coerce.date(),
   endedAt: z.coerce.date(),
@@ -7570,7 +7570,7 @@ export const UserSettingsUncheckedUpdateWithoutUserInputSchema: z.ZodType<Prisma
 });
 
 export const UserCreateWithoutAccountsInputSchema: z.ZodType<Prisma.UserCreateWithoutAccountsInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string().optional().nullable(),
   email: z.string(),
   emailVerified: z.coerce.date().optional().nullable(),
@@ -7586,7 +7586,7 @@ export const UserCreateWithoutAccountsInputSchema: z.ZodType<Prisma.UserCreateWi
 });
 
 export const UserUncheckedCreateWithoutAccountsInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutAccountsInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string().optional().nullable(),
   email: z.string(),
   emailVerified: z.coerce.date().optional().nullable(),
@@ -7618,7 +7618,7 @@ export const UserUpdateToOneWithWhereWithoutAccountsInputSchema: z.ZodType<Prism
 });
 
 export const UserUpdateWithoutAccountsInputSchema: z.ZodType<Prisma.UserUpdateWithoutAccountsInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   emailVerified: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -7634,7 +7634,7 @@ export const UserUpdateWithoutAccountsInputSchema: z.ZodType<Prisma.UserUpdateWi
 });
 
 export const UserUncheckedUpdateWithoutAccountsInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutAccountsInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   emailVerified: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -7650,7 +7650,7 @@ export const UserUncheckedUpdateWithoutAccountsInputSchema: z.ZodType<Prisma.Use
 });
 
 export const UserCreateWithoutSessionsInputSchema: z.ZodType<Prisma.UserCreateWithoutSessionsInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string().optional().nullable(),
   email: z.string(),
   emailVerified: z.coerce.date().optional().nullable(),
@@ -7666,7 +7666,7 @@ export const UserCreateWithoutSessionsInputSchema: z.ZodType<Prisma.UserCreateWi
 });
 
 export const UserUncheckedCreateWithoutSessionsInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutSessionsInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string().optional().nullable(),
   email: z.string(),
   emailVerified: z.coerce.date().optional().nullable(),
@@ -7698,7 +7698,7 @@ export const UserUpdateToOneWithWhereWithoutSessionsInputSchema: z.ZodType<Prism
 });
 
 export const UserUpdateWithoutSessionsInputSchema: z.ZodType<Prisma.UserUpdateWithoutSessionsInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   emailVerified: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -7714,7 +7714,7 @@ export const UserUpdateWithoutSessionsInputSchema: z.ZodType<Prisma.UserUpdateWi
 });
 
 export const UserUncheckedUpdateWithoutSessionsInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutSessionsInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   emailVerified: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -7730,7 +7730,7 @@ export const UserUncheckedUpdateWithoutSessionsInputSchema: z.ZodType<Prisma.Use
 });
 
 export const UserCreateWithoutSettingsInputSchema: z.ZodType<Prisma.UserCreateWithoutSettingsInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string().optional().nullable(),
   email: z.string(),
   emailVerified: z.coerce.date().optional().nullable(),
@@ -7746,7 +7746,7 @@ export const UserCreateWithoutSettingsInputSchema: z.ZodType<Prisma.UserCreateWi
 });
 
 export const UserUncheckedCreateWithoutSettingsInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutSettingsInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string().optional().nullable(),
   email: z.string(),
   emailVerified: z.coerce.date().optional().nullable(),
@@ -7778,7 +7778,7 @@ export const UserUpdateToOneWithWhereWithoutSettingsInputSchema: z.ZodType<Prism
 });
 
 export const UserUpdateWithoutSettingsInputSchema: z.ZodType<Prisma.UserUpdateWithoutSettingsInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   emailVerified: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -7794,7 +7794,7 @@ export const UserUpdateWithoutSettingsInputSchema: z.ZodType<Prisma.UserUpdateWi
 });
 
 export const UserUncheckedUpdateWithoutSettingsInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutSettingsInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   emailVerified: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -7810,7 +7810,7 @@ export const UserUncheckedUpdateWithoutSettingsInputSchema: z.ZodType<Prisma.Use
 });
 
 export const WorkoutCreateWithoutWorkoutOfMesocycleInputSchema: z.ZodType<Prisma.WorkoutCreateWithoutWorkoutOfMesocycleInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   userBodyweight: z.number(),
   startedAt: z.coerce.date(),
   endedAt: z.coerce.date(),
@@ -7820,7 +7820,7 @@ export const WorkoutCreateWithoutWorkoutOfMesocycleInputSchema: z.ZodType<Prisma
 });
 
 export const WorkoutUncheckedCreateWithoutWorkoutOfMesocycleInputSchema: z.ZodType<Prisma.WorkoutUncheckedCreateWithoutWorkoutOfMesocycleInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   userBodyweight: z.number(),
   startedAt: z.coerce.date(),
   endedAt: z.coerce.date(),
@@ -7835,7 +7835,7 @@ export const WorkoutCreateOrConnectWithoutWorkoutOfMesocycleInputSchema: z.ZodTy
 });
 
 export const MesocycleCreateWithoutWorkoutsOfMesocycleInputSchema: z.ZodType<Prisma.MesocycleCreateWithoutWorkoutsOfMesocycleInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   RIRProgression: z.union([ z.lazy(() => MesocycleCreateRIRProgressionInputSchema), z.number().int().array() ]).optional(),
   startDate: z.coerce.date().optional().nullable(),
@@ -7850,7 +7850,7 @@ export const MesocycleCreateWithoutWorkoutsOfMesocycleInputSchema: z.ZodType<Pri
 });
 
 export const MesocycleUncheckedCreateWithoutWorkoutsOfMesocycleInputSchema: z.ZodType<Prisma.MesocycleUncheckedCreateWithoutWorkoutsOfMesocycleInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   userId: z.string(),
   exerciseSplitId: z.string().optional().nullable(),
@@ -7881,7 +7881,7 @@ export const WorkoutUpdateToOneWithWhereWithoutWorkoutOfMesocycleInputSchema: z.
 });
 
 export const WorkoutUpdateWithoutWorkoutOfMesocycleInputSchema: z.ZodType<Prisma.WorkoutUpdateWithoutWorkoutOfMesocycleInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   userBodyweight: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
   startedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   endedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -7891,7 +7891,7 @@ export const WorkoutUpdateWithoutWorkoutOfMesocycleInputSchema: z.ZodType<Prisma
 });
 
 export const WorkoutUncheckedUpdateWithoutWorkoutOfMesocycleInputSchema: z.ZodType<Prisma.WorkoutUncheckedUpdateWithoutWorkoutOfMesocycleInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   userBodyweight: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
   startedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   endedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -7912,7 +7912,7 @@ export const MesocycleUpdateToOneWithWhereWithoutWorkoutsOfMesocycleInputSchema:
 });
 
 export const MesocycleUpdateWithoutWorkoutsOfMesocycleInputSchema: z.ZodType<Prisma.MesocycleUpdateWithoutWorkoutsOfMesocycleInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   RIRProgression: z.union([ z.lazy(() => MesocycleUpdateRIRProgressionInputSchema), z.number().int().array() ]).optional(),
   startDate: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -7927,7 +7927,7 @@ export const MesocycleUpdateWithoutWorkoutsOfMesocycleInputSchema: z.ZodType<Pri
 });
 
 export const MesocycleUncheckedUpdateWithoutWorkoutsOfMesocycleInputSchema: z.ZodType<Prisma.MesocycleUncheckedUpdateWithoutWorkoutsOfMesocycleInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   userId: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   exerciseSplitId: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -7942,7 +7942,7 @@ export const MesocycleUncheckedUpdateWithoutWorkoutsOfMesocycleInputSchema: z.Zo
 });
 
 export const UserCreateWithoutWorkoutsInputSchema: z.ZodType<Prisma.UserCreateWithoutWorkoutsInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string().optional().nullable(),
   email: z.string(),
   emailVerified: z.coerce.date().optional().nullable(),
@@ -7958,7 +7958,7 @@ export const UserCreateWithoutWorkoutsInputSchema: z.ZodType<Prisma.UserCreateWi
 });
 
 export const UserUncheckedCreateWithoutWorkoutsInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutWorkoutsInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string().optional().nullable(),
   email: z.string(),
   emailVerified: z.coerce.date().optional().nullable(),
@@ -7979,14 +7979,14 @@ export const UserCreateOrConnectWithoutWorkoutsInputSchema: z.ZodType<Prisma.Use
 });
 
 export const WorkoutOfMesocycleCreateWithoutWorkoutInputSchema: z.ZodType<Prisma.WorkoutOfMesocycleCreateWithoutWorkoutInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   splitDayIndex: z.number().int(),
   workoutStatus: z.lazy(() => WorkoutStatusSchema).optional().nullable(),
   mesocycle: z.lazy(() => MesocycleCreateNestedOneWithoutWorkoutsOfMesocycleInputSchema),
 });
 
 export const WorkoutOfMesocycleUncheckedCreateWithoutWorkoutInputSchema: z.ZodType<Prisma.WorkoutOfMesocycleUncheckedCreateWithoutWorkoutInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   mesocycleId: z.string(),
   splitDayIndex: z.number().int(),
   workoutStatus: z.lazy(() => WorkoutStatusSchema).optional().nullable(),
@@ -7998,7 +7998,7 @@ export const WorkoutOfMesocycleCreateOrConnectWithoutWorkoutInputSchema: z.ZodTy
 });
 
 export const WorkoutExerciseCreateWithoutWorkoutInputSchema: z.ZodType<Prisma.WorkoutExerciseCreateWithoutWorkoutInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   exerciseIndex: z.number().int(),
   name: z.string(),
   targetMuscleGroup: z.lazy(() => MuscleGroupSchema),
@@ -8020,7 +8020,7 @@ export const WorkoutExerciseCreateWithoutWorkoutInputSchema: z.ZodType<Prisma.Wo
 });
 
 export const WorkoutExerciseUncheckedCreateWithoutWorkoutInputSchema: z.ZodType<Prisma.WorkoutExerciseUncheckedCreateWithoutWorkoutInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   exerciseIndex: z.number().int(),
   name: z.string(),
   targetMuscleGroup: z.lazy(() => MuscleGroupSchema),
@@ -8063,7 +8063,7 @@ export const UserUpdateToOneWithWhereWithoutWorkoutsInputSchema: z.ZodType<Prism
 });
 
 export const UserUpdateWithoutWorkoutsInputSchema: z.ZodType<Prisma.UserUpdateWithoutWorkoutsInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   emailVerified: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -8079,7 +8079,7 @@ export const UserUpdateWithoutWorkoutsInputSchema: z.ZodType<Prisma.UserUpdateWi
 });
 
 export const UserUncheckedUpdateWithoutWorkoutsInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutWorkoutsInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   emailVerified: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -8106,14 +8106,14 @@ export const WorkoutOfMesocycleUpdateToOneWithWhereWithoutWorkoutInputSchema: z.
 });
 
 export const WorkoutOfMesocycleUpdateWithoutWorkoutInputSchema: z.ZodType<Prisma.WorkoutOfMesocycleUpdateWithoutWorkoutInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   splitDayIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   workoutStatus: z.union([ z.lazy(() => WorkoutStatusSchema), z.lazy(() => NullableEnumWorkoutStatusFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   mesocycle: z.lazy(() => MesocycleUpdateOneRequiredWithoutWorkoutsOfMesocycleNestedInputSchema).optional(),
 });
 
 export const WorkoutOfMesocycleUncheckedUpdateWithoutWorkoutInputSchema: z.ZodType<Prisma.WorkoutOfMesocycleUncheckedUpdateWithoutWorkoutInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   mesocycleId: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   splitDayIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   workoutStatus: z.union([ z.lazy(() => WorkoutStatusSchema), z.lazy(() => NullableEnumWorkoutStatusFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -8161,7 +8161,7 @@ export const WorkoutExerciseScalarWhereInputSchema: z.ZodType<Prisma.WorkoutExer
 });
 
 export const WorkoutCreateWithoutWorkoutExercisesInputSchema: z.ZodType<Prisma.WorkoutCreateWithoutWorkoutExercisesInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   userBodyweight: z.number(),
   startedAt: z.coerce.date(),
   endedAt: z.coerce.date(),
@@ -8171,7 +8171,7 @@ export const WorkoutCreateWithoutWorkoutExercisesInputSchema: z.ZodType<Prisma.W
 });
 
 export const WorkoutUncheckedCreateWithoutWorkoutExercisesInputSchema: z.ZodType<Prisma.WorkoutUncheckedCreateWithoutWorkoutExercisesInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   userBodyweight: z.number(),
   startedAt: z.coerce.date(),
   endedAt: z.coerce.date(),
@@ -8186,7 +8186,7 @@ export const WorkoutCreateOrConnectWithoutWorkoutExercisesInputSchema: z.ZodType
 });
 
 export const WorkoutExerciseSetCreateWithoutWorkoutExerciseInputSchema: z.ZodType<Prisma.WorkoutExerciseSetCreateWithoutWorkoutExerciseInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   setIndex: z.number().int(),
   reps: z.number().int(),
   load: z.number(),
@@ -8196,7 +8196,7 @@ export const WorkoutExerciseSetCreateWithoutWorkoutExerciseInputSchema: z.ZodTyp
 });
 
 export const WorkoutExerciseSetUncheckedCreateWithoutWorkoutExerciseInputSchema: z.ZodType<Prisma.WorkoutExerciseSetUncheckedCreateWithoutWorkoutExerciseInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   setIndex: z.number().int(),
   reps: z.number().int(),
   load: z.number(),
@@ -8227,7 +8227,7 @@ export const WorkoutUpdateToOneWithWhereWithoutWorkoutExercisesInputSchema: z.Zo
 });
 
 export const WorkoutUpdateWithoutWorkoutExercisesInputSchema: z.ZodType<Prisma.WorkoutUpdateWithoutWorkoutExercisesInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   userBodyweight: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
   startedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   endedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -8237,7 +8237,7 @@ export const WorkoutUpdateWithoutWorkoutExercisesInputSchema: z.ZodType<Prisma.W
 });
 
 export const WorkoutUncheckedUpdateWithoutWorkoutExercisesInputSchema: z.ZodType<Prisma.WorkoutUncheckedUpdateWithoutWorkoutExercisesInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   userBodyweight: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
   startedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   endedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -8276,7 +8276,7 @@ export const WorkoutExerciseSetScalarWhereInputSchema: z.ZodType<Prisma.WorkoutE
 });
 
 export const WorkoutExerciseCreateWithoutSetsInputSchema: z.ZodType<Prisma.WorkoutExerciseCreateWithoutSetsInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   exerciseIndex: z.number().int(),
   name: z.string(),
   targetMuscleGroup: z.lazy(() => MuscleGroupSchema),
@@ -8298,7 +8298,7 @@ export const WorkoutExerciseCreateWithoutSetsInputSchema: z.ZodType<Prisma.Worko
 });
 
 export const WorkoutExerciseUncheckedCreateWithoutSetsInputSchema: z.ZodType<Prisma.WorkoutExerciseUncheckedCreateWithoutSetsInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   exerciseIndex: z.number().int(),
   name: z.string(),
   workoutId: z.string(),
@@ -8325,7 +8325,7 @@ export const WorkoutExerciseCreateOrConnectWithoutSetsInputSchema: z.ZodType<Pri
 });
 
 export const WorkoutExerciseMiniSetCreateWithoutParentSetInputSchema: z.ZodType<Prisma.WorkoutExerciseMiniSetCreateWithoutParentSetInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   miniSetIndex: z.number().int(),
   reps: z.number().int(),
   load: z.number(),
@@ -8333,7 +8333,7 @@ export const WorkoutExerciseMiniSetCreateWithoutParentSetInputSchema: z.ZodType<
 });
 
 export const WorkoutExerciseMiniSetUncheckedCreateWithoutParentSetInputSchema: z.ZodType<Prisma.WorkoutExerciseMiniSetUncheckedCreateWithoutParentSetInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   miniSetIndex: z.number().int(),
   reps: z.number().int(),
   load: z.number(),
@@ -8362,7 +8362,7 @@ export const WorkoutExerciseUpdateToOneWithWhereWithoutSetsInputSchema: z.ZodTyp
 });
 
 export const WorkoutExerciseUpdateWithoutSetsInputSchema: z.ZodType<Prisma.WorkoutExerciseUpdateWithoutSetsInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   exerciseIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   targetMuscleGroup: z.union([ z.lazy(() => MuscleGroupSchema), z.lazy(() => EnumMuscleGroupFieldUpdateOperationsInputSchema) ]).optional(),
@@ -8384,7 +8384,7 @@ export const WorkoutExerciseUpdateWithoutSetsInputSchema: z.ZodType<Prisma.Worko
 });
 
 export const WorkoutExerciseUncheckedUpdateWithoutSetsInputSchema: z.ZodType<Prisma.WorkoutExerciseUncheckedUpdateWithoutSetsInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   exerciseIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   workoutId: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
@@ -8434,7 +8434,7 @@ export const WorkoutExerciseMiniSetScalarWhereInputSchema: z.ZodType<Prisma.Work
 });
 
 export const WorkoutExerciseSetCreateWithoutMiniSetsInputSchema: z.ZodType<Prisma.WorkoutExerciseSetCreateWithoutMiniSetsInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   setIndex: z.number().int(),
   reps: z.number().int(),
   load: z.number(),
@@ -8444,7 +8444,7 @@ export const WorkoutExerciseSetCreateWithoutMiniSetsInputSchema: z.ZodType<Prism
 });
 
 export const WorkoutExerciseSetUncheckedCreateWithoutMiniSetsInputSchema: z.ZodType<Prisma.WorkoutExerciseSetUncheckedCreateWithoutMiniSetsInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   setIndex: z.number().int(),
   workoutExerciseId: z.string(),
   reps: z.number().int(),
@@ -8470,7 +8470,7 @@ export const WorkoutExerciseSetUpdateToOneWithWhereWithoutMiniSetsInputSchema: z
 });
 
 export const WorkoutExerciseSetUpdateWithoutMiniSetsInputSchema: z.ZodType<Prisma.WorkoutExerciseSetUpdateWithoutMiniSetsInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   setIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   reps: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   load: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
@@ -8480,7 +8480,7 @@ export const WorkoutExerciseSetUpdateWithoutMiniSetsInputSchema: z.ZodType<Prism
 });
 
 export const WorkoutExerciseSetUncheckedUpdateWithoutMiniSetsInputSchema: z.ZodType<Prisma.WorkoutExerciseSetUncheckedUpdateWithoutMiniSetsInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   setIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   workoutExerciseId: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   reps: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
@@ -8490,14 +8490,14 @@ export const WorkoutExerciseSetUncheckedUpdateWithoutMiniSetsInputSchema: z.ZodT
 });
 
 export const ExerciseSplitDayCreateManyExerciseSplitInputSchema: z.ZodType<Prisma.ExerciseSplitDayCreateManyExerciseSplitInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   dayIndex: z.number().int(),
   isRestDay: z.boolean(),
 });
 
 export const MesocycleCreateManyExerciseSplitInputSchema: z.ZodType<Prisma.MesocycleCreateManyExerciseSplitInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   userId: z.string(),
   RIRProgression: z.union([ z.lazy(() => MesocycleCreateRIRProgressionInputSchema), z.number().int().array() ]).optional(),
@@ -8509,7 +8509,7 @@ export const MesocycleCreateManyExerciseSplitInputSchema: z.ZodType<Prisma.Mesoc
 });
 
 export const ExerciseSplitDayUpdateWithoutExerciseSplitInputSchema: z.ZodType<Prisma.ExerciseSplitDayUpdateWithoutExerciseSplitInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   dayIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   isRestDay: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
@@ -8517,7 +8517,7 @@ export const ExerciseSplitDayUpdateWithoutExerciseSplitInputSchema: z.ZodType<Pr
 });
 
 export const ExerciseSplitDayUncheckedUpdateWithoutExerciseSplitInputSchema: z.ZodType<Prisma.ExerciseSplitDayUncheckedUpdateWithoutExerciseSplitInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   dayIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   isRestDay: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
@@ -8525,14 +8525,14 @@ export const ExerciseSplitDayUncheckedUpdateWithoutExerciseSplitInputSchema: z.Z
 });
 
 export const ExerciseSplitDayUncheckedUpdateManyWithoutExerciseSplitInputSchema: z.ZodType<Prisma.ExerciseSplitDayUncheckedUpdateManyWithoutExerciseSplitInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   dayIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   isRestDay: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
 });
 
 export const MesocycleUpdateWithoutExerciseSplitInputSchema: z.ZodType<Prisma.MesocycleUpdateWithoutExerciseSplitInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   RIRProgression: z.union([ z.lazy(() => MesocycleUpdateRIRProgressionInputSchema), z.number().int().array() ]).optional(),
   startDate: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -8547,7 +8547,7 @@ export const MesocycleUpdateWithoutExerciseSplitInputSchema: z.ZodType<Prisma.Me
 });
 
 export const MesocycleUncheckedUpdateWithoutExerciseSplitInputSchema: z.ZodType<Prisma.MesocycleUncheckedUpdateWithoutExerciseSplitInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   userId: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   RIRProgression: z.union([ z.lazy(() => MesocycleUpdateRIRProgressionInputSchema), z.number().int().array() ]).optional(),
@@ -8562,7 +8562,7 @@ export const MesocycleUncheckedUpdateWithoutExerciseSplitInputSchema: z.ZodType<
 });
 
 export const MesocycleUncheckedUpdateManyWithoutExerciseSplitInputSchema: z.ZodType<Prisma.MesocycleUncheckedUpdateManyWithoutExerciseSplitInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   userId: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   RIRProgression: z.union([ z.lazy(() => MesocycleUpdateRIRProgressionInputSchema), z.number().int().array() ]).optional(),
@@ -8574,7 +8574,7 @@ export const MesocycleUncheckedUpdateManyWithoutExerciseSplitInputSchema: z.ZodT
 });
 
 export const ExerciseTemplateCreateManyExerciseSplitDayInputSchema: z.ZodType<Prisma.ExerciseTemplateCreateManyExerciseSplitDayInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   exerciseIndex: z.number().int(),
   targetMuscleGroup: z.lazy(() => MuscleGroupSchema),
@@ -8591,7 +8591,7 @@ export const ExerciseTemplateCreateManyExerciseSplitDayInputSchema: z.ZodType<Pr
 });
 
 export const ExerciseTemplateUpdateWithoutExerciseSplitDayInputSchema: z.ZodType<Prisma.ExerciseTemplateUpdateWithoutExerciseSplitDayInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   exerciseIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   targetMuscleGroup: z.union([ z.lazy(() => MuscleGroupSchema), z.lazy(() => EnumMuscleGroupFieldUpdateOperationsInputSchema) ]).optional(),
@@ -8608,7 +8608,7 @@ export const ExerciseTemplateUpdateWithoutExerciseSplitDayInputSchema: z.ZodType
 });
 
 export const ExerciseTemplateUncheckedUpdateWithoutExerciseSplitDayInputSchema: z.ZodType<Prisma.ExerciseTemplateUncheckedUpdateWithoutExerciseSplitDayInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   exerciseIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   targetMuscleGroup: z.union([ z.lazy(() => MuscleGroupSchema), z.lazy(() => EnumMuscleGroupFieldUpdateOperationsInputSchema) ]).optional(),
@@ -8625,7 +8625,7 @@ export const ExerciseTemplateUncheckedUpdateWithoutExerciseSplitDayInputSchema: 
 });
 
 export const ExerciseTemplateUncheckedUpdateManyWithoutExerciseSplitDayInputSchema: z.ZodType<Prisma.ExerciseTemplateUncheckedUpdateManyWithoutExerciseSplitDayInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   exerciseIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   targetMuscleGroup: z.union([ z.lazy(() => MuscleGroupSchema), z.lazy(() => EnumMuscleGroupFieldUpdateOperationsInputSchema) ]).optional(),
@@ -8642,14 +8642,14 @@ export const ExerciseTemplateUncheckedUpdateManyWithoutExerciseSplitDayInputSche
 });
 
 export const MesocycleExerciseSplitDayCreateManyMesocycleInputSchema: z.ZodType<Prisma.MesocycleExerciseSplitDayCreateManyMesocycleInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   dayIndex: z.number().int(),
   isRestDay: z.boolean(),
 });
 
 export const MesocycleCyclicSetChangeCreateManyMesocycleInputSchema: z.ZodType<Prisma.MesocycleCyclicSetChangeCreateManyMesocycleInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   muscleGroup: z.lazy(() => MuscleGroupSchema),
   customMuscleGroup: z.string().optional().nullable(),
   regardlessOfProgress: z.boolean(),
@@ -8658,14 +8658,14 @@ export const MesocycleCyclicSetChangeCreateManyMesocycleInputSchema: z.ZodType<P
 });
 
 export const WorkoutOfMesocycleCreateManyMesocycleInputSchema: z.ZodType<Prisma.WorkoutOfMesocycleCreateManyMesocycleInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   workoutId: z.string(),
   splitDayIndex: z.number().int(),
   workoutStatus: z.lazy(() => WorkoutStatusSchema).optional().nullable(),
 });
 
 export const MesocycleExerciseSplitDayUpdateWithoutMesocycleInputSchema: z.ZodType<Prisma.MesocycleExerciseSplitDayUpdateWithoutMesocycleInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   dayIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   isRestDay: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
@@ -8673,7 +8673,7 @@ export const MesocycleExerciseSplitDayUpdateWithoutMesocycleInputSchema: z.ZodTy
 });
 
 export const MesocycleExerciseSplitDayUncheckedUpdateWithoutMesocycleInputSchema: z.ZodType<Prisma.MesocycleExerciseSplitDayUncheckedUpdateWithoutMesocycleInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   dayIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   isRestDay: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
@@ -8681,14 +8681,14 @@ export const MesocycleExerciseSplitDayUncheckedUpdateWithoutMesocycleInputSchema
 });
 
 export const MesocycleExerciseSplitDayUncheckedUpdateManyWithoutMesocycleInputSchema: z.ZodType<Prisma.MesocycleExerciseSplitDayUncheckedUpdateManyWithoutMesocycleInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   dayIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   isRestDay: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
 });
 
 export const MesocycleCyclicSetChangeUpdateWithoutMesocycleInputSchema: z.ZodType<Prisma.MesocycleCyclicSetChangeUpdateWithoutMesocycleInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   muscleGroup: z.union([ z.lazy(() => MuscleGroupSchema), z.lazy(() => EnumMuscleGroupFieldUpdateOperationsInputSchema) ]).optional(),
   customMuscleGroup: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   regardlessOfProgress: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
@@ -8697,7 +8697,7 @@ export const MesocycleCyclicSetChangeUpdateWithoutMesocycleInputSchema: z.ZodTyp
 });
 
 export const MesocycleCyclicSetChangeUncheckedUpdateWithoutMesocycleInputSchema: z.ZodType<Prisma.MesocycleCyclicSetChangeUncheckedUpdateWithoutMesocycleInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   muscleGroup: z.union([ z.lazy(() => MuscleGroupSchema), z.lazy(() => EnumMuscleGroupFieldUpdateOperationsInputSchema) ]).optional(),
   customMuscleGroup: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   regardlessOfProgress: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
@@ -8706,7 +8706,7 @@ export const MesocycleCyclicSetChangeUncheckedUpdateWithoutMesocycleInputSchema:
 });
 
 export const MesocycleCyclicSetChangeUncheckedUpdateManyWithoutMesocycleInputSchema: z.ZodType<Prisma.MesocycleCyclicSetChangeUncheckedUpdateManyWithoutMesocycleInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   muscleGroup: z.union([ z.lazy(() => MuscleGroupSchema), z.lazy(() => EnumMuscleGroupFieldUpdateOperationsInputSchema) ]).optional(),
   customMuscleGroup: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   regardlessOfProgress: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
@@ -8715,28 +8715,28 @@ export const MesocycleCyclicSetChangeUncheckedUpdateManyWithoutMesocycleInputSch
 });
 
 export const WorkoutOfMesocycleUpdateWithoutMesocycleInputSchema: z.ZodType<Prisma.WorkoutOfMesocycleUpdateWithoutMesocycleInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   splitDayIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   workoutStatus: z.union([ z.lazy(() => WorkoutStatusSchema), z.lazy(() => NullableEnumWorkoutStatusFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   workout: z.lazy(() => WorkoutUpdateOneRequiredWithoutWorkoutOfMesocycleNestedInputSchema).optional(),
 });
 
 export const WorkoutOfMesocycleUncheckedUpdateWithoutMesocycleInputSchema: z.ZodType<Prisma.WorkoutOfMesocycleUncheckedUpdateWithoutMesocycleInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   workoutId: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   splitDayIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   workoutStatus: z.union([ z.lazy(() => WorkoutStatusSchema), z.lazy(() => NullableEnumWorkoutStatusFieldUpdateOperationsInputSchema) ]).optional().nullable(),
 });
 
 export const WorkoutOfMesocycleUncheckedUpdateManyWithoutMesocycleInputSchema: z.ZodType<Prisma.WorkoutOfMesocycleUncheckedUpdateManyWithoutMesocycleInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   workoutId: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   splitDayIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   workoutStatus: z.union([ z.lazy(() => WorkoutStatusSchema), z.lazy(() => NullableEnumWorkoutStatusFieldUpdateOperationsInputSchema) ]).optional().nullable(),
 });
 
 export const MesocycleExerciseTemplateCreateManyMesocycleExerciseSplitDayInputSchema: z.ZodType<Prisma.MesocycleExerciseTemplateCreateManyMesocycleExerciseSplitDayInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   exerciseIndex: z.number().int(),
   targetMuscleGroup: z.lazy(() => MuscleGroupSchema),
@@ -8758,7 +8758,7 @@ export const MesocycleExerciseTemplateCreateManyMesocycleExerciseSplitDayInputSc
 });
 
 export const MesocycleExerciseTemplateUpdateWithoutMesocycleExerciseSplitDayInputSchema: z.ZodType<Prisma.MesocycleExerciseTemplateUpdateWithoutMesocycleExerciseSplitDayInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   exerciseIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   targetMuscleGroup: z.union([ z.lazy(() => MuscleGroupSchema), z.lazy(() => EnumMuscleGroupFieldUpdateOperationsInputSchema) ]).optional(),
@@ -8780,7 +8780,7 @@ export const MesocycleExerciseTemplateUpdateWithoutMesocycleExerciseSplitDayInpu
 });
 
 export const MesocycleExerciseTemplateUncheckedUpdateWithoutMesocycleExerciseSplitDayInputSchema: z.ZodType<Prisma.MesocycleExerciseTemplateUncheckedUpdateWithoutMesocycleExerciseSplitDayInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   exerciseIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   targetMuscleGroup: z.union([ z.lazy(() => MuscleGroupSchema), z.lazy(() => EnumMuscleGroupFieldUpdateOperationsInputSchema) ]).optional(),
@@ -8802,7 +8802,7 @@ export const MesocycleExerciseTemplateUncheckedUpdateWithoutMesocycleExerciseSpl
 });
 
 export const MesocycleExerciseTemplateUncheckedUpdateManyWithoutMesocycleExerciseSplitDayInputSchema: z.ZodType<Prisma.MesocycleExerciseTemplateUncheckedUpdateManyWithoutMesocycleExerciseSplitDayInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   exerciseIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   targetMuscleGroup: z.union([ z.lazy(() => MuscleGroupSchema), z.lazy(() => EnumMuscleGroupFieldUpdateOperationsInputSchema) ]).optional(),
@@ -8846,12 +8846,12 @@ export const SessionCreateManyUserInputSchema: z.ZodType<Prisma.SessionCreateMan
 });
 
 export const ExerciseSplitCreateManyUserInputSchema: z.ZodType<Prisma.ExerciseSplitCreateManyUserInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
 });
 
 export const MesocycleCreateManyUserInputSchema: z.ZodType<Prisma.MesocycleCreateManyUserInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   name: z.string(),
   exerciseSplitId: z.string().optional().nullable(),
   RIRProgression: z.union([ z.lazy(() => MesocycleCreateRIRProgressionInputSchema), z.number().int().array() ]).optional(),
@@ -8863,7 +8863,7 @@ export const MesocycleCreateManyUserInputSchema: z.ZodType<Prisma.MesocycleCreat
 });
 
 export const WorkoutCreateManyUserInputSchema: z.ZodType<Prisma.WorkoutCreateManyUserInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   userBodyweight: z.number(),
   startedAt: z.coerce.date(),
   endedAt: z.coerce.date(),
@@ -8937,26 +8937,26 @@ export const SessionUncheckedUpdateManyWithoutUserInputSchema: z.ZodType<Prisma.
 });
 
 export const ExerciseSplitUpdateWithoutUserInputSchema: z.ZodType<Prisma.ExerciseSplitUpdateWithoutUserInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   exerciseSplitDays: z.lazy(() => ExerciseSplitDayUpdateManyWithoutExerciseSplitNestedInputSchema).optional(),
   usedByMesocycles: z.lazy(() => MesocycleUpdateManyWithoutExerciseSplitNestedInputSchema).optional(),
 });
 
 export const ExerciseSplitUncheckedUpdateWithoutUserInputSchema: z.ZodType<Prisma.ExerciseSplitUncheckedUpdateWithoutUserInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   exerciseSplitDays: z.lazy(() => ExerciseSplitDayUncheckedUpdateManyWithoutExerciseSplitNestedInputSchema).optional(),
   usedByMesocycles: z.lazy(() => MesocycleUncheckedUpdateManyWithoutExerciseSplitNestedInputSchema).optional(),
 });
 
 export const ExerciseSplitUncheckedUpdateManyWithoutUserInputSchema: z.ZodType<Prisma.ExerciseSplitUncheckedUpdateManyWithoutUserInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
 });
 
 export const MesocycleUpdateWithoutUserInputSchema: z.ZodType<Prisma.MesocycleUpdateWithoutUserInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   RIRProgression: z.union([ z.lazy(() => MesocycleUpdateRIRProgressionInputSchema), z.number().int().array() ]).optional(),
   startDate: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -8971,7 +8971,7 @@ export const MesocycleUpdateWithoutUserInputSchema: z.ZodType<Prisma.MesocycleUp
 });
 
 export const MesocycleUncheckedUpdateWithoutUserInputSchema: z.ZodType<Prisma.MesocycleUncheckedUpdateWithoutUserInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   exerciseSplitId: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   RIRProgression: z.union([ z.lazy(() => MesocycleUpdateRIRProgressionInputSchema), z.number().int().array() ]).optional(),
@@ -8986,7 +8986,7 @@ export const MesocycleUncheckedUpdateWithoutUserInputSchema: z.ZodType<Prisma.Me
 });
 
 export const MesocycleUncheckedUpdateManyWithoutUserInputSchema: z.ZodType<Prisma.MesocycleUncheckedUpdateManyWithoutUserInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   exerciseSplitId: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   RIRProgression: z.union([ z.lazy(() => MesocycleUpdateRIRProgressionInputSchema), z.number().int().array() ]).optional(),
@@ -8998,7 +8998,7 @@ export const MesocycleUncheckedUpdateManyWithoutUserInputSchema: z.ZodType<Prism
 });
 
 export const WorkoutUpdateWithoutUserInputSchema: z.ZodType<Prisma.WorkoutUpdateWithoutUserInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   userBodyweight: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
   startedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   endedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -9008,7 +9008,7 @@ export const WorkoutUpdateWithoutUserInputSchema: z.ZodType<Prisma.WorkoutUpdate
 });
 
 export const WorkoutUncheckedUpdateWithoutUserInputSchema: z.ZodType<Prisma.WorkoutUncheckedUpdateWithoutUserInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   userBodyweight: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
   startedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   endedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -9018,7 +9018,7 @@ export const WorkoutUncheckedUpdateWithoutUserInputSchema: z.ZodType<Prisma.Work
 });
 
 export const WorkoutUncheckedUpdateManyWithoutUserInputSchema: z.ZodType<Prisma.WorkoutUncheckedUpdateManyWithoutUserInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   userBodyweight: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
   startedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   endedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -9026,7 +9026,7 @@ export const WorkoutUncheckedUpdateManyWithoutUserInputSchema: z.ZodType<Prisma.
 });
 
 export const WorkoutExerciseCreateManyWorkoutInputSchema: z.ZodType<Prisma.WorkoutExerciseCreateManyWorkoutInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   exerciseIndex: z.number().int(),
   name: z.string(),
   targetMuscleGroup: z.lazy(() => MuscleGroupSchema),
@@ -9047,7 +9047,7 @@ export const WorkoutExerciseCreateManyWorkoutInputSchema: z.ZodType<Prisma.Worko
 });
 
 export const WorkoutExerciseUpdateWithoutWorkoutInputSchema: z.ZodType<Prisma.WorkoutExerciseUpdateWithoutWorkoutInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   exerciseIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   targetMuscleGroup: z.union([ z.lazy(() => MuscleGroupSchema), z.lazy(() => EnumMuscleGroupFieldUpdateOperationsInputSchema) ]).optional(),
@@ -9069,7 +9069,7 @@ export const WorkoutExerciseUpdateWithoutWorkoutInputSchema: z.ZodType<Prisma.Wo
 });
 
 export const WorkoutExerciseUncheckedUpdateWithoutWorkoutInputSchema: z.ZodType<Prisma.WorkoutExerciseUncheckedUpdateWithoutWorkoutInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   exerciseIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   targetMuscleGroup: z.union([ z.lazy(() => MuscleGroupSchema), z.lazy(() => EnumMuscleGroupFieldUpdateOperationsInputSchema) ]).optional(),
@@ -9091,7 +9091,7 @@ export const WorkoutExerciseUncheckedUpdateWithoutWorkoutInputSchema: z.ZodType<
 });
 
 export const WorkoutExerciseUncheckedUpdateManyWithoutWorkoutInputSchema: z.ZodType<Prisma.WorkoutExerciseUncheckedUpdateManyWithoutWorkoutInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   exerciseIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   targetMuscleGroup: z.union([ z.lazy(() => MuscleGroupSchema), z.lazy(() => EnumMuscleGroupFieldUpdateOperationsInputSchema) ]).optional(),
@@ -9112,7 +9112,7 @@ export const WorkoutExerciseUncheckedUpdateManyWithoutWorkoutInputSchema: z.ZodT
 });
 
 export const WorkoutExerciseSetCreateManyWorkoutExerciseInputSchema: z.ZodType<Prisma.WorkoutExerciseSetCreateManyWorkoutExerciseInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   setIndex: z.number().int(),
   reps: z.number().int(),
   load: z.number(),
@@ -9121,7 +9121,7 @@ export const WorkoutExerciseSetCreateManyWorkoutExerciseInputSchema: z.ZodType<P
 });
 
 export const WorkoutExerciseSetUpdateWithoutWorkoutExerciseInputSchema: z.ZodType<Prisma.WorkoutExerciseSetUpdateWithoutWorkoutExerciseInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   setIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   reps: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   load: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
@@ -9131,7 +9131,7 @@ export const WorkoutExerciseSetUpdateWithoutWorkoutExerciseInputSchema: z.ZodTyp
 });
 
 export const WorkoutExerciseSetUncheckedUpdateWithoutWorkoutExerciseInputSchema: z.ZodType<Prisma.WorkoutExerciseSetUncheckedUpdateWithoutWorkoutExerciseInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   setIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   reps: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   load: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
@@ -9141,7 +9141,7 @@ export const WorkoutExerciseSetUncheckedUpdateWithoutWorkoutExerciseInputSchema:
 });
 
 export const WorkoutExerciseSetUncheckedUpdateManyWithoutWorkoutExerciseInputSchema: z.ZodType<Prisma.WorkoutExerciseSetUncheckedUpdateManyWithoutWorkoutExerciseInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   setIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   reps: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   load: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
@@ -9150,7 +9150,7 @@ export const WorkoutExerciseSetUncheckedUpdateManyWithoutWorkoutExerciseInputSch
 });
 
 export const WorkoutExerciseMiniSetCreateManyParentSetInputSchema: z.ZodType<Prisma.WorkoutExerciseMiniSetCreateManyParentSetInput> = z.strictObject({
-  id: z.cuid().optional(),
+  id: z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }).optional(),
   miniSetIndex: z.number().int(),
   reps: z.number().int(),
   load: z.number(),
@@ -9158,7 +9158,7 @@ export const WorkoutExerciseMiniSetCreateManyParentSetInputSchema: z.ZodType<Pri
 });
 
 export const WorkoutExerciseMiniSetUpdateWithoutParentSetInputSchema: z.ZodType<Prisma.WorkoutExerciseMiniSetUpdateWithoutParentSetInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   miniSetIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   reps: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   load: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
@@ -9166,7 +9166,7 @@ export const WorkoutExerciseMiniSetUpdateWithoutParentSetInputSchema: z.ZodType<
 });
 
 export const WorkoutExerciseMiniSetUncheckedUpdateWithoutParentSetInputSchema: z.ZodType<Prisma.WorkoutExerciseMiniSetUncheckedUpdateWithoutParentSetInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   miniSetIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   reps: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   load: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
@@ -9174,7 +9174,7 @@ export const WorkoutExerciseMiniSetUncheckedUpdateWithoutParentSetInputSchema: z
 });
 
 export const WorkoutExerciseMiniSetUncheckedUpdateManyWithoutParentSetInputSchema: z.ZodType<Prisma.WorkoutExerciseMiniSetUncheckedUpdateManyWithoutParentSetInput> = z.strictObject({
-  id: z.union([ z.cuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  id: z.union([ z.string().regex(/^[a-z0-9]+$/i, { message: "Invalid ID format" }),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   miniSetIndex: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   reps: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   load: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
