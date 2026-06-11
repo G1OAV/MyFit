@@ -505,7 +505,7 @@ export default defineConfig({
 							const prerendered = ['/privacy-policy', '/terms-of-service', '/offline', '/donations', '/docs'];
 							return !(cacheFirst.includes(request.destination) || prerendered.includes(url.pathname) || url.pathname.includes('~icons'));
 						},
-						handler: 'NetworkOnly' as const,
+						handler: 'NetworkFirst' as const,
 						options: { networkTimeoutSeconds: 5, precacheFallback: { fallbackURL: '/offline' } }
 					}
 				]
