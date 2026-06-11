@@ -1,4 +1,4 @@
-import adapter from '@sveltejs/adapter-vercel';
+import adapter from '@sveltejs/adapter-cloudflare';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import { createRequire } from 'module';
 
@@ -24,4 +24,8 @@ const config = {
 	}
 };
 
-export default config;
+export default {
+	kit: {
+	  adapter: adapter()
+	}
+  };
