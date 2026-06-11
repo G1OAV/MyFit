@@ -10,7 +10,7 @@ import type { Prisma } from '@prisma/client';
 // ENUMS
 /////////////////////////////////////////
 
-export const TransactionIsolationLevelSchema = z.enum(['Serializable']);
+export const TransactionIsolationLevelSchema = z.enum(['ReadUncommitted','ReadCommitted','RepeatableRead','Serializable']);
 
 export const ExerciseSplitScalarFieldEnumSchema = z.enum(['id','name','userId']);
 
@@ -5711,6 +5711,7 @@ export const UserCreateNestedOneWithoutSettingsInputSchema: z.ZodType<Prisma.Use
 
 export const UserSettingsUpdatequotesDisplayModesInputSchema: z.ZodType<Prisma.UserSettingsUpdatequotesDisplayModesInput> = z.strictObject({
   set: z.lazy(() => QuotesDisplayModeSchema).array().optional(),
+  push: z.union([ z.lazy(() => QuotesDisplayModeSchema), z.lazy(() => QuotesDisplayModeSchema).array() ]).optional(),
 });
 
 export const UserUpdateOneRequiredWithoutSettingsNestedInputSchema: z.ZodType<Prisma.UserUpdateOneRequiredWithoutSettingsNestedInput> = z.strictObject({
